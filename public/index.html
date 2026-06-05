@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barter ◈ — Community Trade Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#B8860B;--gold-l:#E4B429;--gold-ll:#FAE98F;--gold-bg:#FFFBEE;
+  --ink:#12100E;--ink2:#3D3830;--ink3:#7A7060;--ink4:#B0A898;
+  --cream:#FAF8F3;--cream2:#F2EFE6;--cream3:#E2DDD0;
+  --green:#1B6B42;--green-l:#D4EDDF;
+  --red:#8B2020;--red-l:#F8E4E4;
+  --blue:#1A3C6E;--blue-l:#D8E6F5;
+  --sh:0 1px 3px rgba(18,16,14,.07),0 4px 16px rgba(18,16,14,.05);
+  --sh-lg:0 8px 40px rgba(18,16,14,.13);
+  --r:10px;--rs:6px;--rl:16px;
+  --ff:'Fraunces',Georgia,serif;
+  --fb:'DM Sans','Helvetica Neue',sans-serif;
+}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:100vh;font-size:14px}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream2)}::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:3px}
+
+/* ── AUTH ── */
+#auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden}
+#auth-screen::before{content:'◈';position:absolute;font-size:700px;opacity:.025;color:var(--gold-l);top:50%;left:50%;transform:translate(-50%,-52%);font-family:var(--ff);pointer-events:none;line-height:1}
+.auth-card{background:#fff;border-radius:22px;padding:44px 48px;width:100%;max-width:430px;box-shadow:var(--sh-lg);position:relative;z-index:1}
+.auth-logo{text-align:center;margin-bottom:32px}
+.logo-coin{width:58px;height:58px;border-radius:50%;background:linear-gradient(145deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:var(--ink);margin:0 auto 12px;font-family:var(--ff);box-shadow:0 4px 24px rgba(184,134,11,.35)}
+.auth-logo h1{font-size:28px;letter-spacing:-.5px}
+.auth-logo p{font-size:12px;color:var(--ink3);margin-top:3px;letter-spacing:.3px}
+.auth-tabs{display:flex;background:var(--cream2);border-radius:var(--rs);padding:3px;margin-bottom:22px}
+.auth-tab{flex:1;padding:7px;border:none;background:none;border-radius:5px;font-size:13px;color:var(--ink3);cursor:pointer;transition:all .18s;font-family:var(--fb)}
+.auth-tab.active{background:#fff;color:var(--ink);font-weight:500;box-shadow:0 1px 5px rgba(0,0,0,.09)}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:11px;font-weight:500;color:var(--ink2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.fi{width:100%;padding:9px 13px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:14px;color:var(--ink);background:var(--cream);transition:border .2s;font-family:var(--fb)}
+.fi:focus{outline:none;border-color:var(--gold);background:#fff}
+.btn-auth{width:100%;padding:12px;background:var(--ink);color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--ff);letter-spacing:.3px}
+.btn-auth:hover{background:var(--ink2);transform:translateY(-1px)}
+.btn-auth.gold{background:linear-gradient(135deg,var(--gold-l),var(--gold));color:var(--ink)}
+.auth-err{color:var(--red);font-size:12px;margin-top:8px;text-align:center;min-height:18px}
+.auth-link{font-size:12px;color:var(--ink3);text-align:center;margin-top:14px}
+.auth-link a{color:var(--gold);cursor:pointer}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ── APP ── */
+#app{display:none;min-height:100vh;flex-direction:column}
+#app.on{display:flex}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--ink);height:54px;display:flex;align-items:center;padding:0 20px;gap:14px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.05)}
+.tb-brand{display:flex;align-items:center;gap:8px;color:var(--gold-ll);font-family:var(--ff);font-size:17px;font-weight:600;letter-spacing:-.2px;flex-shrink:0;cursor:pointer}
+.tb-coin{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--ink)}
+.tb-nav{display:flex;gap:2px;flex:1;justify-content:center}
+.tn{background:none;border:none;color:rgba(255,255,255,.42);padding:6px 13px;border-radius:var(--rs);font-size:13px;cursor:pointer;transition:all .14s;display:flex;align-items:center;gap:5px;font-family:var(--fb)}
+.tn:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.06)}
+.tn.on{color:var(--gold-ll);background:rgba(228,180,41,.14)}
+.tb-r{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.bal-chip{display:flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(228,180,41,.11);border:1px solid rgba(228,180,41,.22);border-radius:16px;color:var(--gold-ll);font-size:13px;cursor:pointer;transition:all .14s}
+.bal-chip:hover{background:rgba(228,180,41,.2)}
+.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink);cursor:pointer;border:2px solid rgba(255,255,255,.08)}
+.tb-logout{background:none;border:none;color:rgba(255,255,255,.28);font-size:12px;padding:4px 8px;cursor:pointer;transition:color .14s}
+.tb-logout:hover{color:rgba(255,255,255,.7)}
+
+/* ── MAIN ── */
+.main{flex:1;padding:22px 20px;max-width:1080px;margin:0 auto;width:100%}
+.page{display:none}.page.on{display:block}
+
+/* ── COMPONENTS ── */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border:1.5px solid var(--cream3);background:#fff;color:var(--ink);border-radius:var(--rs);font-size:13px;cursor:pointer;transition:all .14s;font-family:var(--fb);white-space:nowrap}
+.btn:hover{background:var(--cream2)}
+.btn-dark{background:var(--ink);color:#fff;border-color:var(--ink)}.btn-dark:hover{background:var(--ink2)}
+.btn-gold{background:var(--gold-bg);color:var(--gold);border-color:rgba(184,134,11,.25)}.btn-gold:hover{background:var(--gold-ll)}
+.btn-success{background:var(--green-l);color:var(--green);border-color:rgba(27,107,66,.2)}
+.btn-danger{background:var(--red-l);color:var(--red);border-color:rgba(139,32,32,.15)}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-lg{padding:12px 24px;font-size:15px}
+
+.card{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:18px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-size:16px;font-weight:600;font-family:var(--ff)}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:14px}
+.pt{font-size:26px;letter-spacing:-.5px}
+.ps{font-size:13px;color:var(--ink3);margin-top:2px;font-weight:300}
+
+/* ── UBI BANNER ── */
+.ubi-banner{background:var(--ink);border-radius:var(--rl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;overflow:hidden}
+.ubi-banner::after{content:'◈';position:absolute;right:-16px;top:-28px;font-size:160px;opacity:.04;color:var(--gold);font-family:var(--ff);pointer-events:none}
+.ubi-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(228,180,41,.18);border:1px solid rgba(228,180,41,.28);color:var(--gold-l);font-size:11px;padding:3px 9px;border-radius:9px;margin-bottom:7px;font-weight:500}
+.ubi-title{font-size:19px;color:var(--gold-ll);font-family:var(--ff);margin-bottom:2px}
+.ubi-sub{font-size:12px;color:rgba(255,255,255,.38)}
+.ubi-cd{text-align:right;position:relative;z-index:1}
+.ubi-cd-val{font-size:26px;font-weight:700;color:var(--gold-l);font-family:var(--ff);line-height:1}
+.ubi-cd-lab{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px}
+
+/* ── STATS GRID ── */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
+.sc{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px}
+.si{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:9px;font-size:14px}
+.si.gold{background:var(--gold-bg);color:var(--gold)}
+.si.green{background:var(--green-l);color:var(--green)}
+.si.blue{background:var(--blue-l);color:var(--blue)}
+.si.ink{background:var(--cream2);color:var(--ink)}
+.sv{font-size:24px;font-weight:700;font-family:var(--ff);line-height:1}
+.sl{font-size:11px;color:var(--ink3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
+
+/* ── MARKET ── */
+.mc{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.sw{position:relative;flex:1;min-width:200px}
+.sw i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink4);font-size:12px;pointer-events:none}
+.si-search{width:100%;padding:8px 11px 8px 30px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:13px;background:#fff;color:var(--ink);transition:border .2s;font-family:var(--fb)}
+.si-search:focus{outline:none;border-color:var(--gold)}
+.sel{padding:8px 12px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:13px;background:#fff;color:var(--ink);cursor:pointer;font-family:var(--fb);appearance:none}
+.sel:focus{outline:none;border-color:var(--gold)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{padding:4px 12px;border-radius:18px;border:1.5px solid var(--cream3);background:#fff;font-size:12px;cursor:pointer;color:var(--ink2);transition:all .14s;display:flex;align-items:center;gap:3px}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:15px}
+.lcard{background:#fff;border:1px solid var(--cream3);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s}
+.lcard:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:rgba(184,134,11,.18)}
+.lthumb{height:155px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:54px;position:relative}
+.lbadge{position:absolute;top:9px;right:9px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:7px;text-transform:uppercase;letter-spacing:.4px}
+.badge-auc{background:var(--ink);color:var(--gold-ll)}
+.badge-buy{background:var(--green-l);color:var(--green)}
+.lbody{padding:13px}
+.lt{font-size:14px;font-weight:600;font-family:var(--ff);margin-bottom:3px}
+.lm{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink3);margin-bottom:9px}
+.lf{display:flex;align-items:center;justify-content:space-between}
+.lp{font-size:17px;font-weight:700;color:var(--gold);font-family:var(--ff)}
+.lp span{font-size:11px;font-weight:400;color:var(--ink3);font-family:var(--fb)}
+.lbc{font-size:11px;color:var(--ink4);display:flex;align-items:center;gap:3px}
+
+/* ── WALLET ── */
+.who{background:var(--ink);border-radius:var(--rl);padding:26px 30px;position:relative;overflow:hidden;margin-bottom:22px}
+.who::before{content:'◈◈◈';position:absolute;right:-50px;bottom:-24px;font-size:110px;opacity:.04;color:var(--gold);letter-spacing:-14px;font-family:var(--ff);pointer-events:none}
+.wl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.38);margin-bottom:5px}
+.wb{font-size:52px;font-weight:700;color:var(--gold-l);font-family:var(--ff);line-height:1;letter-spacing:-1px}
+.wt{font-size:14px;color:rgba(255,255,255,.3);margin-top:3px}
+.wa{font-family:monospace;font-size:11px;color:rgba(255,255,255,.22);margin-top:12px;letter-spacing:.4px}
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px}
+.txf{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.txfb{padding:5px 12px;border-radius:18px;border:1.5px solid var(--cream3);background:#fff;font-size:12px;cursor:pointer;color:var(--ink2);transition:all .14s;font-family:var(--fb)}
+.txfb.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.txlist{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);overflow:hidden}
+.txrow{display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid var(--cream2);gap:11px;transition:background .1s}
+.txrow:last-child{border:none}
+.txrow:hover{background:var(--cream)}
+.txi{width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.txi.ubi{background:var(--gold-bg);color:var(--gold)}
+.txi.in{background:var(--green-l);color:var(--green)}
+.txi.out{background:var(--red-l);color:var(--red)}
+.txb{flex:1}
+.txd{font-size:13px;font-weight:500}
+.txdt{font-size:11px;color:var(--ink4)}
+.txa{font-size:14px;font-weight:700}
+.txa.in{color:var(--green)}.txa.out{color:var(--red)}.txa.ubi{color:var(--gold)}
+
+/* ── PROFILE ── */
+.pcard{background:#fff;border:1px solid var(--cream3);border-radius:var(--rl);padding:26px;margin-bottom:18px;display:flex;gap:22px;align-items:flex-start}
+.pav{width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:var(--ink);font-family:var(--ff);flex-shrink:0;box-shadow:0 4px 18px rgba(184,134,11,.28)}
+.pname{font-size:24px;letter-spacing:-.3px;margin-bottom:4px}
+.pbio{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:11px;max-width:520px}
+.pbadges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.mbadge{display:inline-flex;align-items:center;gap:4px;background:var(--gold-bg);border:1px solid rgba(184,134,11,.22);color:var(--gold);font-size:11px;padding:3px 9px;border-radius:9px;font-weight:500}
+.mbadge.green{background:var(--green-l);border-color:rgba(27,107,66,.18);color:var(--green)}
+.pstats{display:flex;gap:26px;flex-wrap:wrap}
+.psvr{display:flex;align-items:flex-start;gap:28px}
+.rn{font-size:34px;font-weight:700;font-family:var(--ff);color:var(--gold)}
+.rs{font-size:17px;color:var(--gold-l)}
+.rct{font-size:11px;color:var(--ink3)}
+.ps-item{text-align:left}
+.ps-v{font-size:21px;font-weight:700;font-family:var(--ff)}
+.ps-l{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.4px}
+.rev-card{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px;margin-bottom:10px}
+.rev-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.rev-au{display:flex;align-items:center;gap:8px}
+.rev-av{width:28px;height:28px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink2)}
+.rev-name{font-size:13px;font-weight:500}
+.rev-date{font-size:11px;color:var(--ink4)}
+.rev-stars{color:var(--gold-l);font-size:13px}
+.rev-text{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* ── CATALOG ── */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:13px}
+.ci{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px;transition:box-shadow .14s}
+.ci:hover{box-shadow:var(--sh)}
+.ce{font-size:34px;margin-bottom:9px}
+.ct{font-size:14px;font-weight:600;font-family:var(--ff);margin-bottom:2px}
+.cm{font-size:11px;color:var(--ink3);margin-bottom:7px}
+.cp{font-size:17px;font-weight:700;color:var(--gold);font-family:var(--ff)}
+.cstat{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:5px;margin-bottom:5px;font-weight:500}
+.cstat.a{background:var(--green-l);color:var(--green)}
+.cstat.s{background:var(--cream2);color:var(--ink3)}
+.cact{display:flex;gap:6px;margin-top:9px}
+.add-card{background:none;border:2px dashed var(--cream3);border-radius:var(--r);padding:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;min-height:175px;color:var(--ink4);width:100%}
+.add-card:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
+.add-card i{font-size:26px;margin-bottom:7px}
+
+/* ── AI PANEL ── */
+.aip{position:fixed;right:0;top:54px;bottom:0;width:350px;background:#fff;border-left:1px solid var(--cream3);display:flex;flex-direction:column;z-index:90;transform:translateX(100%);transition:transform .28s ease;box-shadow:-4px 0 28px rgba(0,0,0,.09)}
+.aip.open{transform:translateX(0)}
+.ai-hd{padding:14px 16px;border-bottom:1px solid var(--cream2);display:flex;align-items:center;justify-content:space-between}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.ai-title{font-size:14px;font-weight:600;font-family:var(--ff)}
+.ai-sub{font-size:11px;color:var(--ink3)}
+.ai-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px}
+.ai-msg{max-width:86%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.ai-msg.a{background:var(--cream2);color:var(--ink);border-bottom-left-radius:3px;align-self:flex-start}
+.ai-msg.u{background:var(--ink);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
+.ai-msg.t{background:var(--cream2);color:var(--ink3);font-style:italic;align-self:flex-start}
+.ai-in{padding:11px 14px;border-top:1px solid var(--cream2)}
+.ai-q{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.aiq{font-size:11px;padding:4px 9px;border-radius:9px;border:1px solid var(--cream3);background:var(--cream);color:var(--ink2);cursor:pointer;transition:all .14s;font-family:var(--fb)}
+.aiq:hover{border-color:var(--gold);color:var(--gold)}
+.ai-ir{display:flex;gap:5px}
+.ai-ta{flex:1;padding:8px 11px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:13px;background:var(--cream);color:var(--ink);resize:none;height:38px;font-family:var(--fb)}
+.ai-ta:focus{outline:none;border-color:var(--gold)}
+.ai-send{padding:8px 13px;background:var(--ink);color:#fff;border:none;border-radius:var(--rs);cursor:pointer;font-size:13px;transition:all .14s}
+.ai-send:hover{background:var(--ink2)}
+.ai-tog{position:fixed;right:20px;bottom:24px;width:48px;height:48px;border-radius:50%;background:var(--ink);border:none;color:var(--gold-l);font-size:19px;cursor:pointer;z-index:95;box-shadow:0 4px 20px rgba(0,0,0,.22);transition:all .2s;display:none;align-items:center;justify-content:center}
+.ai-tog:hover{background:var(--ink2);transform:scale(1.08)}
+.ai-tog.on{display:flex}
+.ai-tog-badge{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:var(--green);border-radius:50%;border:2px solid var(--ink);font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+/* ── OVERLAY / MODAL ── */
+.ov{position:fixed;inset:0;background:rgba(18,16,14,.6);z-index:150;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(2px)}
+.ov.open{display:flex}
+.modal{background:#fff;border-radius:20px;padding:30px;width:100%;max-width:490px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh-lg)}
+.mh{font-size:20px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.mx{background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink3);line-height:1;padding:0 3px}
+.mx:hover{color:var(--ink)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mf{display:flex;gap:9px;margin-top:22px}
+.mf .btn{flex:1;justify-content:center}
+.sel-full{width:100%;padding:9px 13px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:14px;color:var(--ink);background:var(--cream);appearance:none;cursor:pointer;font-family:var(--fb)}
+.sel-full:focus{outline:none;border-color:var(--gold)}
+.ta{width:100%;padding:9px 13px;border:1.5px solid var(--cream3);border-radius:var(--rs);font-size:14px;color:var(--ink);background:var(--cream);resize:vertical;min-height:76px;font-family:var(--fb)}
+.ta:focus{outline:none;border-color:var(--gold)}
+.epk{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.eo{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--cream3);background:var(--cream);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;flex-shrink:0}
+.eo.on,.eo:hover{border-color:var(--gold);background:var(--gold-bg)}
+.i-hero{font-size:68px;text-align:center;padding:22px;background:var(--cream2);border-radius:var(--r);margin-bottom:18px}
+.i-seller{display:flex;align-items:center;gap:9px;padding:11px;background:var(--cream);border-radius:var(--rs);margin-bottom:14px}
+.i-sav{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink);flex-shrink:0}
+.i-sg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.i-s{background:var(--cream);border-radius:var(--rs);padding:9px 11px}
+.i-sl{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.i-sv{font-size:15px;font-weight:700;font-family:var(--ff)}
+.bid-box{background:var(--gold-bg);border:1px solid rgba(184,134,11,.18);border-radius:var(--rs);padding:13px;margin-bottom:14px}
+.bid-title{font-size:13px;font-weight:600;margin-bottom:9px;color:var(--gold)}
+.bid-ls{display:flex;flex-direction:column;gap:5px;max-height:115px;overflow-y:auto;margin-bottom:9px}
+.bid-e{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(184,134,11,.08)}
+.bid-e:last-child{border:none}
+.bid-ir{display:flex;gap:7px}
+
+/* ── TOAST ── */
+.tc{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;box-shadow:var(--sh-lg);opacity:0;transform:translateY(7px);transition:all .22s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.s{background:var(--green)}.toast.e{background:var(--red)}.toast.g{background:var(--gold)}
+
+/* ── EMPTY ── */
+.es{text-align:center;padding:52px 18px;color:var(--ink3)}
+.es-i{font-size:44px;margin-bottom:11px;opacity:.45}
+.es-t{font-size:15px;font-family:var(--ff)}
+.es-s{font-size:13px;margin-top:5px}
+
+/* ── LOADING ── */
+.spin{display:inline-block;width:20px;height:20px;border:2px solid var(--cream3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-row{display:flex;align-items:center;gap:10px;padding:30px;color:var(--ink3);justify-content:center}
+
+/* ── STARS ── */
+.stars-g{color:var(--gold-l)}
+
+@media(max-width:768px){
+  .sg,.wg{grid-template-columns:1fr 1fr}
+  .tb-nav .tn span{display:none}
+  .aip{width:100%}
+  .main{padding:14px 11px}
+  .auth-card{padding:28px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ AUTH ══ -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="logo-coin">◈</div>
+      <h1>Barter</h1>
+      <p>Universal Income · Community Barter Network</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="authTab('login')">Sign In</button>
+      <button class="auth-tab" onclick="authTab('register')">Join Network</button>
+    </div>
+    <!-- LOGIN -->
+    <div id="af-login">
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="l-email" type="email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')login()"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="l-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"></div>
+      <button class="btn-auth" onclick="login()">Sign In</button>
+      <div class="auth-err" id="l-err"></div>
+      <div class="auth-link">No account? <a onclick="authTab('register')">Join Barter →</a><br><small style="color:var(--ink4);margin-top:6px;display:block">Demo: clara@commons.cc / demo123</small></div>
+    </div>
+    <!-- REGISTER -->
+    <div id="af-reg" style="display:none">
+      <div class="fr2">
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" id="r-name" placeholder="Jane Smith"></div>
+        <div class="fg"><label class="fl">Location</label><input class="fi" id="r-loc" placeholder="City, State"></div>
+      </div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="r-email" type="email" placeholder="your@email.com"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="r-pass" type="password" placeholder="Choose a password"></div>
+      <div class="fg"><label class="fl">Bio <span style="font-weight:300;text-transform:none;letter-spacing:0">(what do you offer?)</span></label><input class="fi" id="r-bio" placeholder="I grow herbs and bake bread..."></div>
+      <button class="btn-auth gold" onclick="register()">Join & Receive 500 ◈BC</button>
+      <div class="auth-err" id="r-err"></div>
+      <div class="auth-link" style="margin-top:10px">By joining you agree to barter in good faith and respect all members.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app">
+  <nav class="topbar">
+    <div class="tb-brand" onclick="goPage('market')"><div class="tb-coin">◈</div>Barter</div>
+    <div class="tb-nav">
+      <button class="tn on" data-page="market" onclick="goPage('market')"><i class="fas fa-store"></i><span>Market</span></button>
+      <button class="tn" data-page="wallet" onclick="goPage('wallet')"><i class="fas fa-wallet"></i><span>Wallet</span></button>
+      <button class="tn" data-page="profile" onclick="goPage('profile')"><i class="fas fa-user"></i><span>Profile</span></button>
+      <button class="tn" data-page="catalog" onclick="goPage('catalog')"><i class="fas fa-list"></i><span>My Catalog</span></button>
+    </div>
+    <div class="tb-r">
+      <div class="bal-chip" onclick="goPage('wallet')">◈ <span id="tb-bal">0</span> BC</div>
+      <div class="av" id="tb-av" onclick="goPage('profile')"></div>
+      <button class="tb-logout" onclick="logout()" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <!-- MARKET PAGE -->
+    <div class="page on" id="page-market">
+      <div class="ubi-banner">
+        <div>
+          <div class="ubi-badge"><i class="fas fa-coins"></i> Universal Income Active</div>
+          <div class="ubi-title">500 ◈BC deposited to every member monthly</div>
+          <div class="ubi-sub">Use it to trade, save, or bid on community listings</div>
+        </div>
+        <div class="ubi-cd"><div class="ubi-cd-val" id="ubi-cd">—</div><div class="ubi-cd-lab">until next UBI drop</div></div>
+      </div>
+      <div class="mc">
+        <div class="sw"><i class="fas fa-search"></i><input class="si-search" id="m-q" placeholder="Search listings…" oninput="loadListings()"></div>
+        <select class="sel" id="m-sort" onchange="loadListings()">
+          <option value="new">Newest</option><option value="low">Price ↑</option>
+          <option value="high">Price ↓</option><option value="rating">Top Rated</option>
+        </select>
+        <button class="btn btn-dark" onclick="openListModal()"><i class="fas fa-plus"></i> List Item</button>
+      </div>
+      <div class="chips" id="m-cats">
+        <button class="chip on" onclick="setCat(this,'All')">🏪 All</button>
+        <button class="chip" onclick="setCat(this,'Produce')">🌿 Produce</button>
+        <button class="chip" onclick="setCat(this,'Crafts')">🎨 Crafts</button>
+        <button class="chip" onclick="setCat(this,'Services')">🛠 Services</button>
+        <button class="chip" onclick="setCat(this,'Electronics')">⚡ Electronics</button>
+        <button class="chip" onclick="setCat(this,'Books')">📚 Books</button>
+        <button class="chip" onclick="setCat(this,'Food')">🍞 Food</button>
+        <button class="chip" onclick="setCat(this,'Clothing')">👗 Clothing</button>
+        <button class="chip" onclick="setCat(this,'Other')">📦 Other</button>
+      </div>
+      <div id="m-grid" class="mgrid"></div>
+    </div>
+
+    <!-- WALLET PAGE -->
+    <div class="page" id="page-wallet">
+      <div class="who">
+        <div class="wl">Available Balance</div>
+        <div class="wb" id="w-bal">0</div>
+        <div class="wt">Barter (◈BC)</div>
+        <div class="wa" id="w-addr"></div>
+      </div>
+      <div class="wg">
+        <div class="sc"><div class="si gold"><i class="fas fa-arrow-down"></i></div><div class="sv" id="w-rcv">0</div><div class="sl">Total Received</div></div>
+        <div class="sc"><div class="si blue"><i class="fas fa-arrow-up"></i></div><div class="sv" id="w-spt">0</div><div class="sl">Total Spent</div></div>
+        <div class="sc"><div class="si green"><i class="fas fa-handshake"></i></div><div class="sv" id="w-trd">0</div><div class="sl">Total Trades</div></div>
+      </div>
+      <div class="sec-head">
+        <div class="sec-title">Transaction History</div>
+        <div class="txf">
+          <button class="txfb on" onclick="setTxF('all',this)">All</button>
+          <button class="txfb" onclick="setTxF('in',this)">Received</button>
+          <button class="txfb" onclick="setTxF('out',this)">Sent</button>
+          <button class="txfb" onclick="setTxF('ubi',this)">UBI Drops</button>
+        </div>
+      </div>
+      <div class="txlist" id="tx-list"></div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="page-profile">
+      <div class="pcard">
+        <div class="pav" id="p-av"></div>
+        <div style="flex:1">
+          <div class="pname" id="p-name"></div>
+          <div class="pbio" id="p-bio"></div>
+          <div class="pbadges">
+            <span class="mbadge"><i class="fas fa-coins"></i> Barter Member</span>
+            <span class="mbadge green"><i class="fas fa-check-circle"></i> Verified</span>
+            <span class="mbadge" id="p-loc-badge"><i class="fas fa-map-pin"></i> <span id="p-loc"></span></span>
+          </div>
+          <div class="psvr">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:7px"><span class="rn" id="p-rat">5.0</span><span class="rs" id="p-stars">★★★★★</span></div>
+              <div class="rct" id="p-rct">0 reviews</div>
+            </div>
+            <div class="pstats">
+              <div class="ps-item"><div class="ps-v" id="p-trd">0</div><div class="ps-l">Trades</div></div>
+              <div class="ps-item"><div class="ps-v" id="p-lst">0</div><div class="ps-l">Listings</div></div>
+              <div class="ps-item"><div class="ps-v" id="p-jnd"></div><div class="ps-l">Since</div></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-sm" onclick="openEditProfile()"><i class="fas fa-edit"></i> Edit</button>
+      </div>
+      <div class="sec-head"><div class="sec-title">Community Reviews</div></div>
+      <div id="p-reviews"></div>
+    </div>
+
+    <!-- CATALOG PAGE -->
+    <div class="page" id="page-catalog">
+      <div class="ph">
+        <div><div class="pt">My Catalog</div><div class="ps">Items you're offering to the community</div></div>
+        <button class="btn btn-dark" onclick="openListModal()"><i class="fas fa-plus"></i> New Listing</button>
+      </div>
+      <div class="cgrid" id="c-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AI PANEL ══ -->
+<button class="ai-tog" id="ai-tog" onclick="toggleAI()">
+  <i class="fas fa-robot"></i>
+  <span class="ai-tog-badge">AI</span>
+</button>
+<div class="aip" id="ai-panel">
+  <div class="ai-hd">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="ai-dot"></div>
+      <div><div class="ai-title">Barter AI</div><div class="ai-sub">Powered by Claude</div></div>
+    </div>
+    <button class="btn btn-sm" onclick="toggleAI()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="ai-msgs" id="ai-msgs"></div>
+  <div class="ai-in">
+    <div class="ai-q">
+      <button class="aiq" onclick="aiQ('What should I list based on my profile?')">💡 What to list?</button>
+      <button class="aiq" onclick="aiQ('Help me write a listing description')">✍️ Write desc</button>
+      <button class="aiq" onclick="aiQ('What are the best deals right now?')">🔍 Best deals?</button>
+      <button class="aiq" onclick="aiQ('How does UBI work in Barter?')">❓ About UBI</button>
+    </div>
+    <div class="ai-ir">
+      <textarea class="ai-ta" id="ai-ta" placeholder="Ask anything…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
+      <button class="ai-send" onclick="sendAI()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODALS ══ -->
+<!-- List/Edit Item -->
+<div class="ov" id="ov-list">
+  <div class="modal">
+    <div class="mh"><span id="lm-title">New Listing</span><button class="mx" onclick="closeOv('ov-list')">×</button></div>
+    <div class="fg"><label class="fl">Title</label><input class="fi" id="f-title" placeholder="What are you offering?"></div>
+    <div class="fg">
+      <label class="fl">Choose Icon</label>
+      <div class="epk" id="emoji-pk">🍅🌿🍞🍯🎨🧺🛠💻📚🎸🕯️🌻🍋🫐🧀⚡📷🎁👗🪴🔌📦🐣🎵🪡</div>
+    </div>
+    <div class="fg">
+      <label class="fl">Description</label>
+      <div style="display:flex;gap:7px;align-items:flex-start">
+        <textarea class="ta" id="f-desc" placeholder="Describe your item…"></textarea>
+        <button class="btn btn-gold btn-sm" style="flex-shrink:0;margin-top:2px" onclick="aiDesc()"><i class="fas fa-magic"></i> AI</button>
+      </div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Category</label>
+        <select class="sel-full" id="f-cat"><option>Produce</option><option>Crafts</option><option>Services</option><option>Electronics</option><option>Books</option><option>Food</option><option>Clothing</option><option>Other</option></select>
+      </div>
+      <div class="fg"><label class="fl">Condition</label>
+        <select class="sel-full" id="f-cond"><option>New</option><option>Like New</option><option>Good</option><option>Fair</option><option>Handmade</option><option>Fresh</option><option>Service</option></select>
+      </div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Price (◈BC)</label><input class="fi" id="f-price" type="number" min="1" placeholder="e.g. 100"></div>
+      <div class="fg"><label class="fl">Type</label>
+        <select class="sel-full" id="f-type"><option value="buy">Buy Now</option><option value="bid">Auction / Bid</option></select>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn" onclick="closeOv('ov-list')">Cancel</button>
+      <button class="btn btn-dark" onclick="submitListing()"><i class="fas fa-check"></i> Publish</button>
+    </div>
+  </div>
+</div>
+
+<!-- Item Detail -->
+<div class="ov" id="ov-item"><div class="modal" id="item-modal"></div></div>
+
+<!-- Edit Profile -->
+<div class="ov" id="ov-profile">
+  <div class="modal">
+    <div class="mh">Edit Profile <button class="mx" onclick="closeOv('ov-profile')">×</button></div>
+    <div class="fg"><label class="fl">Display Name</label><input class="fi" id="ep-name"></div>
+    <div class="fg"><label class="fl">Bio</label><textarea class="ta" id="ep-bio"></textarea></div>
+    <div class="fg"><label class="fl">Location</label><input class="fi" id="ep-loc"></div>
+    <div class="mf">
+      <button class="btn" onclick="closeOv('ov-profile')">Cancel</button>
+      <button class="btn btn-dark" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="tc" id="tc"></div>
+
+<script>
+// ── CONFIG ──
+const API = window.location.origin; // Same-origin
+let token = localStorage.getItem('barter_token');
+let me = null;
+let selEmoji = '📦';
+let editingId = null;
+let curCat = 'All';
+let txMode = 'all';
+let aiOpen = false;
+let aiHistory = [];
+
+// ── API HELPER ──
+async function api(method, path, body) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(API + path, opts);
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Request failed');
+  return d;
+}
+
+// ── STARS ──
+function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n)); }
+
+// ── AUTH ──
+function authTab(t) {
+  document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', i === (t==='login'?0:1)));
+  document.getElementById('af-login').style.display = t==='login'?'block':'none';
+  document.getElementById('af-reg').style.display = t==='register'?'block':'none';
+}
+
+async function login() {
+  const email = document.getElementById('l-email').value.trim();
+  const password = document.getElementById('l-pass').value;
+  const errEl = document.getElementById('l-err');
+  errEl.textContent = '';
+  try {
+    const d = await api('POST', '/api/auth/login', { email, password });
+    token = d.token; localStorage.setItem('barter_token', token);
+    me = d.user;
+    if (d.ubiDropped) setTimeout(() => toast('◈ 500 CC UBI drop received!', 'g'), 800);
+    startApp();
+  } catch(e) { errEl.textContent = e.message; }
+}
+
+async function register() {
+  const name = document.getElementById('r-name').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const password = document.getElementById('r-pass').value;
+  const bio = document.getElementById('r-bio').value.trim();
+  const location = document.getElementById('r-loc').value.trim();
+  const errEl = document.getElementById('r-err');
+  errEl.textContent = '';
+  if (!name || !email || !password) { errEl.textContent = 'Please fill in all required fields.'; return; }
+  try {
+    const d = await api('POST', '/api/auth/register', { name, email, password, bio, location });
+    token = d.token; localStorage.setItem('barter_token', token);
+    me = d.user;
+    setTimeout(() => toast('Welcome! ◈ 500 CC added to your wallet 🎉', 'g'), 600);
+    startApp();
+  } catch(e) { errEl.textContent = e.message; }
+}
+
+function logout() {
+  token = null; me = null;
+  localStorage.removeItem('barter_token');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('ai-tog').classList.remove('on');
+  if (aiOpen) { aiOpen = false; document.getElementById('ai-panel').classList.remove('open'); }
+}
+
+// ── APP START ──
+function startApp() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  document.getElementById('ai-tog').classList.add('on');
+  updateTopbar();
+  loadListings();
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+  addAIWelcome();
+}
+
+function updateTopbar() {
+  if (!me) return;
+  document.getElementById('tb-bal').textContent = (me.balance || 0).toLocaleString();
+  document.getElementById('tb-av').textContent = me.initials || me.name.slice(0,2).toUpperCase();
+}
+
+async function refreshMe() {
+  try { me = await api('GET', '/api/auth/me'); updateTopbar(); } catch {}
+}
+
+// ── PAGES ──
+function goPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('on'));
+  document.getElementById('page-' + p).classList.add('on');
+  document.querySelectorAll('.tn').forEach(b => b.classList.remove('on'));
+  document.querySelector(`[data-page="${p}"]`).classList.add('on');
+  if (p === 'wallet') loadWallet();
+  if (p === 'profile') loadProfile();
+  if (p === 'catalog') loadCatalog();
+}
+
+// ── UBI COUNTDOWN ──
+function updateCountdown() {
+  const now = new Date(), next = new Date(now.getFullYear(), now.getMonth()+1, 1);
+  const d = Math.floor((next-now)/86400000), h = Math.floor(((next-now)%86400000)/3600000);
+  document.getElementById('ubi-cd').textContent = d + 'd ' + h + 'h';
+}
+
+// ── MARKET ──
+function setCat(el, cat) {
+  curCat = cat;
+  document.querySelectorAll('#m-cats .chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  loadListings();
+}
+
+async function loadListings() {
+  const q = document.getElementById('m-q').value || '';
+  const sort = document.getElementById('m-sort').value;
+  const params = new URLSearchParams({ sort });
+  if (curCat !== 'All') params.set('cat', curCat);
+  if (q) params.set('q', q);
+
+  const grid = document.getElementById('m-grid');
+  grid.innerHTML = '<div class="loading-row"><div class="spin"></div> Loading listings…</div>';
+  try {
+    const items = await api('GET', `/api/listings?${params}`);
+    if (!items.length) {
+      grid.innerHTML = '<div class="es" style="grid-column:1/-1"><div class="es-i">🔍</div><div class="es-t">No listings found</div><div class="es-s">Try a different search or category</div></div>';
+      return;
+    }
+    grid.innerHTML = items.map(l => {
+      const topBid = l.bids && l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
+      return `<div class="lcard" onclick="openItem('${l.id}')">
+        <div class="lthumb"><span>${l.emoji}</span><span class="lbadge ${l.type==='bid'?'badge-auc':'badge-buy'}">${l.type==='bid'?'Auction':'Buy Now'}</span></div>
+        <div class="lbody">
+          <div class="lt">${l.title}</div>
+          <div class="lm"><span>${l.seller_name}</span><span>·</span><span class="stars-g">${stars(l.seller_rating||5)}</span><span>${(l.seller_rating||5).toFixed(1)} (${l.seller_reviews||0})</span></div>
+          <div class="lf">
+            <div class="lp">◈ ${(topBid||l.price).toLocaleString()}<span> CC${topBid?' (top bid)':''}</span></div>
+            <div class="lbc"><i class="fas fa-${l.type==='bid'?'gavel':'tag'}"></i>${l.type==='bid'?(l.bids.length+' bids'):'Fixed'}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = '<div class="es" style="grid-column:1/-1"><div class="es-i">⚠️</div><div class="es-t">Failed to load listings</div></div>';
+  }
+}
+
+// ── ITEM DETAIL ──
+async function openItem(id) {
+  document.getElementById('item-modal').innerHTML = '<div class="loading-row"><div class="spin"></div> Loading…</div>';
+  openOv('ov-item');
+  try {
+    const l = await api('GET', `/api/listings/${id}`);
+    const topBid = l.bids && l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
+    const isOwner = l.seller_id === me.id;
+    const sortedBids = [...(l.bids||[])].sort((a,b) => b.amount - a.amount);
+
+    let bidHTML = '';
+    if (l.type === 'bid') {
+      bidHTML = `<div class="bid-box">
+        <div class="bid-title"><i class="fas fa-gavel"></i> Active Bids (${l.bids.length})</div>
+        <div class="bid-ls">${sortedBids.length ? sortedBids.map(b=>`<div class="bid-e"><span>${b.bidder_name}</span><span>◈ ${b.amount.toLocaleString()}</span></div>`).join('') : '<div style="font-size:12px;color:var(--ink3)">No bids yet — be the first!</div>'}</div>
+        ${!isOwner ? `<div class="bid-ir"><input class="fi" id="bid-amt" type="number" placeholder="Min ◈ ${(topBid||l.price)+1}" style="flex:1"><button class="btn btn-dark" onclick="placeBid('${l.id}')"><i class="fas fa-gavel"></i> Bid</button></div>` : ''}
+      </div>`;
+    }
+
+    document.getElementById('item-modal').innerHTML = `
+      <div class="mh">${l.title}<button class="mx" onclick="closeOv('ov-item')">×</button></div>
+      <div class="i-hero">${l.emoji}</div>
+      <div class="i-seller">
+        <div class="i-sav">${l.seller_initials||'??'}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500">${l.seller_name}</div>
+          <div style="font-size:11px;color:var(--ink3)">${stars(l.seller_rating||5)} ${(l.seller_rating||5).toFixed(1)} · ${l.seller_reviews||0} reviews</div>
+        </div>
+        <span class="chip" style="pointer-events:none;cursor:default">${l.category}</span>
+      </div>
+      ${l.description ? `<p style="font-size:13px;color:var(--ink2);margin-bottom:14px;line-height:1.7">${l.description}</p>` : ''}
+      <div class="i-sg">
+        <div class="i-s"><div class="i-sl">Price</div><div class="i-sv" style="color:var(--gold)">◈ ${(topBid||l.price).toLocaleString()} BC</div></div>
+        <div class="i-s"><div class="i-sl">Condition</div><div class="i-sv">${l.condition}</div></div>
+      </div>
+      ${bidHTML}
+      ${!isOwner && l.type==='buy' ? `<button class="btn btn-dark btn-lg" style="width:100%" onclick="buyNow('${l.id}')"><i class="fas fa-coins"></i> Buy Now · ◈ ${l.price.toLocaleString()} BC</button>` : ''}
+      ${isOwner ? `<div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-danger" style="flex:1" onclick="removeListing('${l.id}')"><i class="fas fa-trash"></i> Remove Listing</button></div>` : ''}
+    `;
+  } catch(e) {
+    document.getElementById('item-modal').innerHTML = `<div class="es"><div class="es-i">⚠️</div><div class="es-t">${e.message}</div></div><button class="btn" onclick="closeOv('ov-item')">Close</button>`;
+  }
+}
+
+async function buyNow(id) {
+  try {
+    const d = await api('POST', `/api/listings/${id}/buy`);
+    await refreshMe();
+    loadListings();
+    closeOv('ov-item');
+    toast('Purchase complete! 🎉', 's');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+async function placeBid(id) {
+  const amt = parseInt(document.getElementById('bid-amt').value || 0);
+  try {
+    await api('POST', `/api/listings/${id}/bid`, { amount: amt });
+    closeOv('ov-item');
+    toast('Bid of ◈ ' + amt.toLocaleString() + ' placed!', 'g');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+async function removeListing(id) {
+  try {
+    await api('DELETE', `/api/listings/${id}`);
+    closeOv('ov-item');
+    loadListings();
+    loadCatalog();
+    toast('Listing removed');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+// ── LIST MODAL ──
+function openListModal(editId) {
+  editingId = editId || null;
+  selEmoji = '📦';
+  document.getElementById('lm-title').textContent = editId ? 'Edit Listing' : 'New Listing';
+  buildEPicker();
+  if (!editId) {
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-desc').value = '';
+    document.getElementById('f-price').value = '';
+  } else {
+    api('GET', `/api/listings/${editId}`).then(l => {
+      document.getElementById('f-title').value = l.title;
+      document.getElementById('f-desc').value = l.description || '';
+      document.getElementById('f-price').value = l.price;
+      document.getElementById('f-cat').value = l.category;
+      document.getElementById('f-cond').value = l.condition;
+      document.getElementById('f-type').value = l.type;
+      selEmoji = l.emoji;
+      buildEPicker();
+    });
+  }
+  openOv('ov-list');
+}
+
+function buildEPicker() {
+  const emojis = ['🍅','🌿','🍞','🍯','🎨','🧺','🛠','💻','📚','🎸','🕯️','🌻','🍋','🫐','🧀','⚡','📷','🎁','👗','🪴','🔌','📦','🐣','🎵','🪡'];
+  document.getElementById('emoji-pk').innerHTML = emojis.map(e =>
+    `<button type="button" class="eo ${e===selEmoji?'on':''}" onclick="pickEmoji('${e}',this)">${e}</button>`
+  ).join('');
+}
+
+function pickEmoji(e, el) {
+  selEmoji = e;
+  document.querySelectorAll('.eo').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+async function submitListing() {
+  const title = document.getElementById('f-title').value.trim();
+  const description = document.getElementById('f-desc').value.trim();
+  const price = parseInt(document.getElementById('f-price').value || 0);
+  const category = document.getElementById('f-cat').value;
+  const condition = document.getElementById('f-cond').value;
+  const type = document.getElementById('f-type').value;
+  if (!title || !price) { toast('Title and price required', 'e'); return; }
+  try {
+    if (editingId) {
+      await api('PUT', `/api/listings/${editingId}`, { title, description, category, emoji: selEmoji, price, type, condition });
+      toast('Listing updated!');
+    } else {
+      await api('POST', '/api/listings', { title, description, category, emoji: selEmoji, price, type, condition });
+      toast('Listing published! 🎉', 's');
+    }
+    closeOv('ov-list');
+    loadListings();
+    loadCatalog();
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+async function aiDesc() {
+  const title = document.getElementById('f-title').value.trim();
+  const cat = document.getElementById('f-cat').value;
+  const cond = document.getElementById('f-cond').value;
+  if (!title) { toast('Enter a title first', 'e'); return; }
+  const ta = document.getElementById('f-desc');
+  ta.value = 'Generating with AI…'; ta.disabled = true;
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{role:'user',content:`Write a short, warm, honest marketplace listing description for a community barter platform. Item: "${title}", Category: ${cat}, Condition: ${cond}. 2-3 sentences, specific and appealing. No bullets, just flowing text.`}] })
+    });
+    const d = await r.json();
+    ta.value = d.content?.find(c=>c.type==='text')?.text || '';
+  } catch { ta.value = ''; toast('AI generation failed', 'e'); }
+  ta.disabled = false;
+}
+
+// ── WALLET ──
+async function loadWallet() {
+  await refreshMe();
+  document.getElementById('w-bal').textContent = (me.balance||0).toLocaleString();
+  document.getElementById('w-addr').textContent = '◈ bc_0x' + me.id.replace(/[^a-z0-9]/g,'').slice(0,12) + '...ff · Member since ' + (me.join_date||'');
+  const txs = await api('GET', '/api/transactions');
+  const rcv = txs.filter(t=>t.type==='in'||t.type==='ubi').reduce((s,t)=>s+t.amount,0);
+  const spt = txs.filter(t=>t.type==='out').reduce((s,t)=>s+t.amount,0);
+  document.getElementById('w-rcv').textContent = rcv.toLocaleString();
+  document.getElementById('w-spt').textContent = spt.toLocaleString();
+  document.getElementById('w-trd').textContent = (me.trade_count||0).toLocaleString();
+  renderTxList(txs);
+}
+
+async function setTxF(f, el) {
+  txMode = f;
+  document.querySelectorAll('.txfb').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const params = f === 'all' ? '' : '?type=' + f;
+  const txs = await api('GET', '/api/transactions' + params);
+  renderTxList(txs);
+}
+
+function renderTxList(txs) {
+  const el = document.getElementById('tx-list');
+  if (!txs.length) { el.innerHTML = '<div class="es"><div class="es-i">📭</div><div class="es-t">No transactions</div></div>'; return; }
+  const icons = { ubi:'<i class="fas fa-coins"></i>', in:'<i class="fas fa-arrow-down"></i>', out:'<i class="fas fa-arrow-up"></i>' };
+  el.innerHTML = txs.map(t => `
+    <div class="txrow">
+      <div class="txi ${t.type}">${icons[t.type]||'◈'}</div>
+      <div class="txb"><div class="txd">${t.description}</div><div class="txdt">${t.date} · ${t.counterparty}</div></div>
+      <div class="txa ${t.type}">${t.type==='out'?'-':'+'} ◈ ${t.amount.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+// ── PROFILE ──
+async function loadProfile() {
+  await refreshMe();
+  const reviews = await api('GET', `/api/reviews/${me.id}`);
+  const listings = await api('GET', `/api/listings?sort=new`);
+  const myListings = listings.filter(l => l.seller_id === me.id);
+  document.getElementById('p-av').textContent = me.initials || me.name.slice(0,2).toUpperCase();
+  document.getElementById('p-name').textContent = me.name;
+  document.getElementById('p-bio').textContent = me.bio || 'No bio yet.';
+  document.getElementById('p-loc').textContent = me.location || 'Earth';
+  document.getElementById('p-rat').textContent = (me.rating||5).toFixed(1);
+  document.getElementById('p-stars').textContent = stars(me.rating||5);
+  document.getElementById('p-rct').textContent = reviews.length + ' reviews';
+  document.getElementById('p-trd').textContent = me.trade_count || 0;
+  document.getElementById('p-lst').textContent = myListings.length;
+  document.getElementById('p-jnd').textContent = (me.join_date||'').slice(0,7);
+  const rc = document.getElementById('p-reviews');
+  if (!reviews.length) { rc.innerHTML = '<div class="es"><div class="es-i">💬</div><div class="es-t">No reviews yet</div><div class="es-s">Complete trades to earn reviews</div></div>'; return; }
+  rc.innerHTML = reviews.map(r => `
+    <div class="rev-card">
+      <div class="rev-hd">
+        <div class="rev-au"><div class="rev-av">${r.reviewer_initials||'??'}</div><div><div class="rev-name">${r.reviewer_name}</div><div class="rev-date">${r.date}</div></div></div>
+        <div class="rev-stars">${stars(r.rating)}</div>
+      </div>
+      <div class="rev-text">${r.text}</div>
+    </div>`).join('');
+}
+
+function openEditProfile() {
+  document.getElementById('ep-name').value = me.name;
+  document.getElementById('ep-bio').value = me.bio || '';
+  document.getElementById('ep-loc').value = me.location || '';
+  openOv('ov-profile');
+}
+
+async function saveProfile() {
+  const name = document.getElementById('ep-name').value.trim();
+  const bio = document.getElementById('ep-bio').value.trim();
+  const location = document.getElementById('ep-loc').value.trim();
+  try {
+    me = await api('PUT', '/api/users/me', { name, bio, location });
+    updateTopbar();
+    loadProfile();
+    closeOv('ov-profile');
+    toast('Profile updated!');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+// ── CATALOG ──
+async function loadCatalog() {
+  const all = await api('GET', '/api/listings?sort=new');
+  const mine = all.filter(l => l.seller_id === me.id);
+  const grid = document.getElementById('c-grid');
+  const cards = mine.map(l => {
+    const topBid = l.bids&&l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
+    return `<div class="ci">
+      <div class="ce">${l.emoji}</div>
+      <span class="cstat ${l.status==='active'?'a':'s'}">${l.status==='active'?'● Active':'✓ Sold'}</span>
+      <div class="ct">${l.title}</div>
+      <div class="cm">${l.category} · ${l.condition}${l.type==='bid'?' · '+l.bids.length+' bids':''}</div>
+      <div class="cp">◈ ${(topBid||l.price).toLocaleString()} BC</div>
+      <div class="cact">
+        <button class="btn btn-sm" onclick="openListModal('${l.id}')"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="removeListing('${l.id}')"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+  grid.innerHTML = cards + `<button class="add-card" onclick="openListModal()"><i class="fas fa-plus"></i><span>Add new listing</span></button>`;
+}
+
+// ── AI ASSISTANT ──
+function toggleAI() {
+  aiOpen = !aiOpen;
+  document.getElementById('ai-panel').classList.toggle('open', aiOpen);
+}
+
+function addAIWelcome() {
+  aiHistory = [];
+  addAIMsg(`Hi ${me.name.split(' ')[0]}! 👋 I'm your Barter AI, powered by Claude.\n\nI can help you write listing descriptions, suggest what to trade, find great deals, or explain how Barter works. What can I help with?`, 'a');
+}
+
+function addAIMsg(text, role) {
+  const el = document.getElementById('ai-msgs');
+  const d = document.createElement('div');
+  d.className = 'ai-msg ' + role;
+  d.textContent = text;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+  if (role !== 't') aiHistory.push({ role: role==='u'?'user':'assistant', content: text });
+}
+
+function aiQ(text) {
+  if (!aiOpen) toggleAI();
+  document.getElementById('ai-ta').value = text;
+  sendAI();
+}
+
+async function sendAI() {
+  const ta = document.getElementById('ai-ta');
+  const text = ta.value.trim();
+  if (!text) return;
+  ta.value = '';
+  addAIMsg(text, 'u');
+
+  const thinking = document.createElement('div');
+  thinking.className = 'ai-msg t';
+  thinking.textContent = 'Claude is thinking…';
+  document.getElementById('ai-msgs').appendChild(thinking);
+  document.getElementById('ai-msgs').scrollTop = 99999;
+
+  try {
+    const system = `You are the AI assistant for Barter, a community barter platform with universal basic income (500 ◈BC per month to all members).
+
+Current user: ${me.name}, Balance: ◈${me.balance} CC, Bio: "${me.bio||'N/A'}", Location: ${me.location||'unknown'}, Rating: ${me.rating||5}/5, Trades: ${me.trade_count||0}.
+
+Be helpful, warm, and community-focused. Keep replies under 200 words. Use ◈ for coin amounts. You can help with: writing listing descriptions, pricing advice, barter suggestions, explaining platform features.`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system, messages: [...aiHistory.slice(-6)] })
+    });
+    thinking.remove();
+    const data = await resp.json();
+    const reply = data.content?.find(c => c.type === 'text')?.text || 'Sorry, I had trouble responding.';
+    addAIMsg(reply, 'a');
+  } catch(e) {
+    thinking.remove();
+    addAIMsg('Connection error — please try again.', 'a');
+  }
+}
+
+// ── OVERLAYS ──
+function openOv(id) { document.getElementById(id).classList.add('open'); }
+function closeOv(id) { document.getElementById(id).classList.remove('open'); }
+document.addEventListener('click', e => { if (e.target.classList.contains('ov')) e.target.classList.remove('open'); });
+
+// ── TOAST ──
+function toast(msg, type = '') {
+  const c = document.getElementById('tc');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  const pre = { s: '✓ ', e: '✕ ', g: '◈ ' };
+  t.textContent = (pre[type]||'') + msg;
+  c.appendChild(t);
+  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 280); }, 2800);
+}
+
+// ── BOOT ──
+if (token) {
+  api('GET', '/api/auth/me').then(user => {
+    me = user;
+    startApp();
+  }).catch(() => {
+    token = null;
+    localStorage.removeItem('barter_token');
+  });
+}
+</script>
+</body>
+</html>
