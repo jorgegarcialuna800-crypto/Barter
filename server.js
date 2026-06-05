@@ -230,8 +230,8 @@ function seedDemoData() {
   ];
 
   for (const [id, sid, title, desc, cat, emoji, price, type, cond] of listings) {
-    run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
-      [id, sid, title, desc, cat, emoji, price, type, cond, 'active', now - Math.random() * 8 * 86400000]);
+    run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [id, sid, title, desc, cat, emoji, price, type, cond, 'active', '', now - Math.random() * 8 * 86400000]);
   }
 
   // Sample bids
