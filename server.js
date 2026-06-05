@@ -71,6 +71,7 @@ async function initDB() {
       type TEXT DEFAULT 'buy',
       condition TEXT DEFAULT 'Good',
       status TEXT DEFAULT 'active',
+      image_url TEXT DEFAULT '',
       created_at INTEGER NOT NULL,
       FOREIGN KEY (seller_id) REFERENCES users(id)
     )
@@ -381,12 +382,29 @@ app.get('/api/listings/:id', (req, res) => {
   res.json(l);
 });
 
+// ─────────────────────────────────────────────
+// IMAGE UPLOAD (Cloudinary signed upload)
+// ─────────────────────────────────────────────
+app.get('/api/upload/sign', auth, (req, res) => {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+  const apiKey    = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  if (!cloudName || !apiKey || !apiSecret) {
+    return res.status(503).json({ error: 'Image uploads not configured' });
+  }
+  const timestamp = Math.floor(Date.now() / 1000);
+  const folder    = 'barter';
+  const toSign    = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+  const signature = CryptoJS.SHA256(toSign).toString();
+  res.json({ timestamp, signature, apiKey, cloudName, folder });
+});
+
 app.post('/api/listings', auth, (req, res) => {
-  const { title, description, category, emoji, price, type, condition } = req.body;
+  const { title, description, category, emoji, price, type, condition, image_url } = req.body;
   if (!title || !price) return res.status(400).json({ error: 'Title and price required' });
   const id = 'l' + uuid().slice(0, 8);
-  run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
-    [id, req.userId, title, description || '', category || 'Other', emoji || '📦', price, type || 'buy', condition || 'Good', 'active', Date.now()]);
+  run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+    [id, req.userId, title, description || '', category || 'Other', emoji || '📦', price, type || 'buy', condition || 'Good', 'active', image_url || '', Date.now()]);
   saveDB();
   res.json({ id, message: 'Listing created' });
 });
@@ -394,9 +412,9 @@ app.post('/api/listings', auth, (req, res) => {
 app.put('/api/listings/:id', auth, (req, res) => {
   const l = query('SELECT * FROM listings WHERE id = ? AND seller_id = ?', [req.params.id, req.userId]);
   if (!l.length) return res.status(403).json({ error: 'Not authorized' });
-  const { title, description, category, emoji, price, type, condition } = req.body;
-  run('UPDATE listings SET title=?, description=?, category=?, emoji=?, price=?, type=?, condition=? WHERE id=?',
-    [title, description, category, emoji, price, type, condition, req.params.id]);
+  const { title, description, category, emoji, price, type, condition, image_url } = req.body;
+  run('UPDATE listings SET title=?, description=?, category=?, emoji=?, price=?, type=?, condition=?, image_url=? WHERE id=?',
+    [title, description, category, emoji, price, type, condition, image_url || '', req.params.id]);
   saveDB();
   res.json({ message: 'Updated' });
 });

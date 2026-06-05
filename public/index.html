@@ -24,7 +24,7 @@
 }
 body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:100vh;font-size:14px}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream2)}::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:3px}
-
+ 
 /* ── AUTH ── */
 #auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden}
 #auth-screen::before{content:'◈';position:absolute;font-size:700px;opacity:.025;color:var(--gold-l);top:50%;left:50%;transform:translate(-50%,-52%);font-family:var(--ff);pointer-events:none;line-height:1}
@@ -47,11 +47,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .auth-link{font-size:12px;color:var(--ink3);text-align:center;margin-top:14px}
 .auth-link a{color:var(--gold);cursor:pointer}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
+ 
 /* ── APP ── */
 #app{display:none;min-height:100vh;flex-direction:column}
 #app.on{display:flex}
-
+ 
 /* ── TOPBAR ── */
 .topbar{background:var(--ink);height:54px;display:flex;align-items:center;padding:0 20px;gap:14px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.05)}
 .tb-brand{display:flex;align-items:center;gap:8px;color:var(--gold-ll);font-family:var(--ff);font-size:17px;font-weight:600;letter-spacing:-.2px;flex-shrink:0;cursor:pointer}
@@ -66,11 +66,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink);cursor:pointer;border:2px solid rgba(255,255,255,.08)}
 .tb-logout{background:none;border:none;color:rgba(255,255,255,.28);font-size:12px;padding:4px 8px;cursor:pointer;transition:color .14s}
 .tb-logout:hover{color:rgba(255,255,255,.7)}
-
+ 
 /* ── MAIN ── */
 .main{flex:1;padding:22px 20px;max-width:1080px;margin:0 auto;width:100%}
 .page{display:none}.page.on{display:block}
-
+ 
 /* ── COMPONENTS ── */
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border:1.5px solid var(--cream3);background:#fff;color:var(--ink);border-radius:var(--rs);font-size:13px;cursor:pointer;transition:all .14s;font-family:var(--fb);white-space:nowrap}
 .btn:hover{background:var(--cream2)}
@@ -80,14 +80,14 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .btn-danger{background:var(--red-l);color:var(--red);border-color:rgba(139,32,32,.15)}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-lg{padding:12px 24px;font-size:15px}
-
+ 
 .card{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:18px}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .sec-title{font-size:16px;font-weight:600;font-family:var(--ff)}
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:14px}
 .pt{font-size:26px;letter-spacing:-.5px}
 .ps{font-size:13px;color:var(--ink3);margin-top:2px;font-weight:300}
-
+ 
 /* ── UBI BANNER ── */
 .ubi-banner{background:var(--ink);border-radius:var(--rl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;overflow:hidden}
 .ubi-banner::after{content:'◈';position:absolute;right:-16px;top:-28px;font-size:160px;opacity:.04;color:var(--gold);font-family:var(--ff);pointer-events:none}
@@ -97,7 +97,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .ubi-cd{text-align:right;position:relative;z-index:1}
 .ubi-cd-val{font-size:26px;font-weight:700;color:var(--gold-l);font-family:var(--ff);line-height:1}
 .ubi-cd-lab{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px}
-
+ 
 /* ── STATS GRID ── */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
 .sc{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px}
@@ -108,7 +108,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .si.ink{background:var(--cream2);color:var(--ink)}
 .sv{font-size:24px;font-weight:700;font-family:var(--ff);line-height:1}
 .sl{font-size:11px;color:var(--ink3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
-
+ 
 /* ── MARKET ── */
 .mc{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .sw{position:relative;flex:1;min-width:200px}
@@ -135,7 +135,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .lp{font-size:17px;font-weight:700;color:var(--gold);font-family:var(--ff)}
 .lp span{font-size:11px;font-weight:400;color:var(--ink3);font-family:var(--fb)}
 .lbc{font-size:11px;color:var(--ink4);display:flex;align-items:center;gap:3px}
-
+ 
 /* ── WALLET ── */
 .who{background:var(--ink);border-radius:var(--rl);padding:26px 30px;position:relative;overflow:hidden;margin-bottom:22px}
 .who::before{content:'◈◈◈';position:absolute;right:-50px;bottom:-24px;font-size:110px;opacity:.04;color:var(--gold);letter-spacing:-14px;font-family:var(--ff);pointer-events:none}
@@ -160,7 +160,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .txdt{font-size:11px;color:var(--ink4)}
 .txa{font-size:14px;font-weight:700}
 .txa.in{color:var(--green)}.txa.out{color:var(--red)}.txa.ubi{color:var(--gold)}
-
+ 
 /* ── PROFILE ── */
 .pcard{background:#fff;border:1px solid var(--cream3);border-radius:var(--rl);padding:26px;margin-bottom:18px;display:flex;gap:22px;align-items:flex-start}
 .pav{width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:var(--ink);font-family:var(--ff);flex-shrink:0;box-shadow:0 4px 18px rgba(184,134,11,.28)}
@@ -185,7 +185,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .rev-date{font-size:11px;color:var(--ink4)}
 .rev-stars{color:var(--gold-l);font-size:13px}
 .rev-text{font-size:13px;color:var(--ink2);line-height:1.6}
-
+ 
 /* ── CATALOG ── */
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:13px}
 .ci{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px;transition:box-shadow .14s}
@@ -201,7 +201,21 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .add-card{background:none;border:2px dashed var(--cream3);border-radius:var(--r);padding:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;min-height:175px;color:var(--ink4);width:100%}
 .add-card:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
 .add-card i{font-size:26px;margin-bottom:7px}
-
+.photo-upload{border:2px dashed var(--cream3);border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;transition:all .18s;position:relative;background:var(--cream);margin-bottom:4px}
+.photo-upload:hover,.photo-upload.drag{border-color:var(--gold);background:var(--gold-bg)}
+.photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-upload i{font-size:26px;color:var(--ink4);margin-bottom:6px;display:block}
+.photo-upload span{font-size:13px;color:var(--ink3)}
+.photo-preview{width:100%;height:160px;object-fit:cover;border-radius:var(--rs);display:none;margin-top:8px}
+.photo-preview.show{display:block}
+.photo-rm{display:none;margin-top:6px;font-size:12px;color:var(--red);cursor:pointer;background:none;border:none;font-family:var(--fb)}
+.photo-rm.show{display:inline-block}
+.upload-prog{height:3px;background:var(--cream3);border-radius:2px;margin-top:6px;display:none;overflow:hidden}
+.upload-prog.show{display:block}
+.upload-prog-bar{height:100%;width:0%;background:var(--gold);transition:width .3s}
+.lthumb img{width:100%;height:100%;object-fit:cover}
+ 
+ 
 /* ── AI PANEL ── */
 .aip{position:fixed;right:0;top:54px;bottom:0;width:350px;background:#fff;border-left:1px solid var(--cream3);display:flex;flex-direction:column;z-index:90;transform:translateX(100%);transition:transform .28s ease;box-shadow:-4px 0 28px rgba(0,0,0,.09)}
 .aip.open{transform:translateX(0)}
@@ -228,7 +242,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .ai-tog:hover{background:var(--ink2);transform:scale(1.08)}
 .ai-tog.on{display:flex}
 .ai-tog-badge{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:var(--green);border-radius:50%;border:2px solid var(--ink);font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-
+ 
 /* ── OVERLAY / MODAL ── */
 .ov{position:fixed;inset:0;background:rgba(18,16,14,.6);z-index:150;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(2px)}
 .ov.open{display:flex}
@@ -259,27 +273,27 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .bid-e{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(184,134,11,.08)}
 .bid-e:last-child{border:none}
 .bid-ir{display:flex;gap:7px}
-
+ 
 /* ── TOAST ── */
 .tc{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none}
 .toast{background:var(--ink);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;box-shadow:var(--sh-lg);opacity:0;transform:translateY(7px);transition:all .22s;white-space:nowrap;display:flex;align-items:center;gap:7px}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.s{background:var(--green)}.toast.e{background:var(--red)}.toast.g{background:var(--gold)}
-
+ 
 /* ── EMPTY ── */
 .es{text-align:center;padding:52px 18px;color:var(--ink3)}
 .es-i{font-size:44px;margin-bottom:11px;opacity:.45}
 .es-t{font-size:15px;font-family:var(--ff)}
 .es-s{font-size:13px;margin-top:5px}
-
+ 
 /* ── LOADING ── */
 .spin{display:inline-block;width:20px;height:20px;border:2px solid var(--cream3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-row{display:flex;align-items:center;gap:10px;padding:30px;color:var(--ink3);justify-content:center}
-
+ 
 /* ── STARS ── */
 .stars-g{color:var(--gold-l)}
-
+ 
 @media(max-width:768px){
   .sg,.wg{grid-template-columns:1fr 1fr}
   .tb-nav .tn span{display:none}
@@ -290,7 +304,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 </style>
 </head>
 <body>
-
+ 
 <!-- ══ AUTH ══ -->
 <div id="auth-screen">
   <div class="auth-card">
@@ -326,7 +340,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ APP ══ -->
 <div id="app">
   <nav class="topbar">
@@ -343,7 +357,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       <button class="tb-logout" onclick="logout()" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
     </div>
   </nav>
-
+ 
   <div class="main">
     <!-- MARKET PAGE -->
     <div class="page on" id="page-market">
@@ -376,7 +390,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       </div>
       <div id="m-grid" class="mgrid"></div>
     </div>
-
+ 
     <!-- WALLET PAGE -->
     <div class="page" id="page-wallet">
       <div class="who">
@@ -401,7 +415,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       </div>
       <div class="txlist" id="tx-list"></div>
     </div>
-
+ 
     <!-- PROFILE PAGE -->
     <div class="page" id="page-profile">
       <div class="pcard">
@@ -431,7 +445,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       <div class="sec-head"><div class="sec-title">Community Reviews</div></div>
       <div id="p-reviews"></div>
     </div>
-
+ 
     <!-- CATALOG PAGE -->
     <div class="page" id="page-catalog">
       <div class="ph">
@@ -442,7 +456,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ AI PANEL ══ -->
 <button class="ai-tog" id="ai-tog" onclick="toggleAI()">
   <i class="fas fa-robot"></i>
@@ -470,13 +484,24 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ MODALS ══ -->
 <!-- List/Edit Item -->
 <div class="ov" id="ov-list">
   <div class="modal">
     <div class="mh"><span id="lm-title">New Listing</span><button class="mx" onclick="closeOv('ov-list')">×</button></div>
     <div class="fg"><label class="fl">Title</label><input class="fi" id="f-title" placeholder="What are you offering?"></div>
+    <div class="fg">
+      <label class="fl">Photo <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <div class="photo-upload" id="photo-drop" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+        <input type="file" id="photo-input" accept="image/*" onchange="handlePhotoSelect(this)">
+        <i class="fas fa-camera" aria-hidden="true"></i>
+        <span id="photo-label">Click or drag a photo here</span>
+      </div>
+      <div class="upload-prog" id="upload-prog"><div class="upload-prog-bar" id="upload-bar"></div></div>
+      <img class="photo-preview" id="photo-preview" alt="Preview">
+      <button class="photo-rm" id="photo-rm" onclick="removePhoto()"><i class="fas fa-times"></i> Remove photo</button>
+    </div>
     <div class="fg">
       <label class="fl">Choose Icon</label>
       <div class="epk" id="emoji-pk">🍅🌿🍞🍯🎨🧺🛠💻📚🎸🕯️🌻🍋🫐🧀⚡📷🎁👗🪴🔌📦🐣🎵🪡</div>
@@ -508,10 +533,10 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
-
+ 
 <!-- Item Detail -->
 <div class="ov" id="ov-item"><div class="modal" id="item-modal"></div></div>
-
+ 
 <!-- Edit Profile -->
 <div class="ov" id="ov-profile">
   <div class="modal">
@@ -525,9 +550,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
-
+ 
 <div class="tc" id="tc"></div>
-
+ 
 <script>
 // ── CONFIG ──
 const API = window.location.origin; // Same-origin
@@ -539,7 +564,7 @@ let curCat = 'All';
 let txMode = 'all';
 let aiOpen = false;
 let aiHistory = [];
-
+ 
 // ── API HELPER ──
 async function api(method, path, body) {
   const opts = { method, headers: { 'Content-Type': 'application/json' } };
@@ -550,17 +575,17 @@ async function api(method, path, body) {
   if (!r.ok) throw new Error(d.error || 'Request failed');
   return d;
 }
-
+ 
 // ── STARS ──
 function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n)); }
-
+ 
 // ── AUTH ──
 function authTab(t) {
   document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', i === (t==='login'?0:1)));
   document.getElementById('af-login').style.display = t==='login'?'block':'none';
   document.getElementById('af-reg').style.display = t==='register'?'block':'none';
 }
-
+ 
 async function login() {
   const email = document.getElementById('l-email').value.trim();
   const password = document.getElementById('l-pass').value;
@@ -574,7 +599,7 @@ async function login() {
     startApp();
   } catch(e) { errEl.textContent = e.message; }
 }
-
+ 
 async function register() {
   const name = document.getElementById('r-name').value.trim();
   const email = document.getElementById('r-email').value.trim();
@@ -592,7 +617,7 @@ async function register() {
     startApp();
   } catch(e) { errEl.textContent = e.message; }
 }
-
+ 
 function logout() {
   token = null; me = null;
   localStorage.removeItem('barter_token');
@@ -601,7 +626,7 @@ function logout() {
   document.getElementById('ai-tog').classList.remove('on');
   if (aiOpen) { aiOpen = false; document.getElementById('ai-panel').classList.remove('open'); }
 }
-
+ 
 // ── APP START ──
 function startApp() {
   document.getElementById('auth-screen').style.display = 'none';
@@ -613,17 +638,17 @@ function startApp() {
   setInterval(updateCountdown, 60000);
   addAIWelcome();
 }
-
+ 
 function updateTopbar() {
   if (!me) return;
   document.getElementById('tb-bal').textContent = (me.balance || 0).toLocaleString();
   document.getElementById('tb-av').textContent = me.initials || me.name.slice(0,2).toUpperCase();
 }
-
+ 
 async function refreshMe() {
   try { me = await api('GET', '/api/auth/me'); updateTopbar(); } catch {}
 }
-
+ 
 // ── PAGES ──
 function goPage(p) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('on'));
@@ -634,14 +659,14 @@ function goPage(p) {
   if (p === 'profile') loadProfile();
   if (p === 'catalog') loadCatalog();
 }
-
+ 
 // ── UBI COUNTDOWN ──
 function updateCountdown() {
   const now = new Date(), next = new Date(now.getFullYear(), now.getMonth()+1, 1);
   const d = Math.floor((next-now)/86400000), h = Math.floor(((next-now)%86400000)/3600000);
   document.getElementById('ubi-cd').textContent = d + 'd ' + h + 'h';
 }
-
+ 
 // ── MARKET ──
 function setCat(el, cat) {
   curCat = cat;
@@ -649,14 +674,14 @@ function setCat(el, cat) {
   el.classList.add('on');
   loadListings();
 }
-
+ 
 async function loadListings() {
   const q = document.getElementById('m-q').value || '';
   const sort = document.getElementById('m-sort').value;
   const params = new URLSearchParams({ sort });
   if (curCat !== 'All') params.set('cat', curCat);
   if (q) params.set('q', q);
-
+ 
   const grid = document.getElementById('m-grid');
   grid.innerHTML = '<div class="loading-row"><div class="spin"></div> Loading listings…</div>';
   try {
@@ -668,7 +693,7 @@ async function loadListings() {
     grid.innerHTML = items.map(l => {
       const topBid = l.bids && l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
       return `<div class="lcard" onclick="openItem('${l.id}')">
-        <div class="lthumb"><span>${l.emoji}</span><span class="lbadge ${l.type==='bid'?'badge-auc':'badge-buy'}">${l.type==='bid'?'Auction':'Buy Now'}</span></div>
+        <div class="lthumb">${l.image_url ? `<img src="${l.image_url}" alt="${l.title}" style="width:100%;height:100%;object-fit:cover">` : `<span>${l.emoji}</span>`}<span class="lbadge ${l.type==='bid'?'badge-auc':'badge-buy'}">${l.type==='bid'?'Auction':'Buy Now'}</span></div>
         <div class="lbody">
           <div class="lt">${l.title}</div>
           <div class="lm"><span>${l.seller_name}</span><span>·</span><span class="stars-g">${stars(l.seller_rating||5)}</span><span>${(l.seller_rating||5).toFixed(1)} (${l.seller_reviews||0})</span></div>
@@ -683,7 +708,7 @@ async function loadListings() {
     grid.innerHTML = '<div class="es" style="grid-column:1/-1"><div class="es-i">⚠️</div><div class="es-t">Failed to load listings</div></div>';
   }
 }
-
+ 
 // ── ITEM DETAIL ──
 async function openItem(id) {
   document.getElementById('item-modal').innerHTML = '<div class="loading-row"><div class="spin"></div> Loading…</div>';
@@ -693,7 +718,10 @@ async function openItem(id) {
     const topBid = l.bids && l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
     const isOwner = l.seller_id === me.id;
     const sortedBids = [...(l.bids||[])].sort((a,b) => b.amount - a.amount);
-
+    const heroHTML = l.image_url
+      ? `<div style="height:220px;border-radius:var(--r);overflow:hidden;margin-bottom:18px"><img src="${l.image_url}" alt="${l.title}" style="width:100%;height:100%;object-fit:cover"></div>`
+      : `<div class="i-hero">${l.emoji}</div>`;
+ 
     let bidHTML = '';
     if (l.type === 'bid') {
       bidHTML = `<div class="bid-box">
@@ -702,10 +730,10 @@ async function openItem(id) {
         ${!isOwner ? `<div class="bid-ir"><input class="fi" id="bid-amt" type="number" placeholder="Min ◈ ${(topBid||l.price)+1}" style="flex:1"><button class="btn btn-dark" onclick="placeBid('${l.id}')"><i class="fas fa-gavel"></i> Bid</button></div>` : ''}
       </div>`;
     }
-
+ 
     document.getElementById('item-modal').innerHTML = `
       <div class="mh">${l.title}<button class="mx" onclick="closeOv('ov-item')">×</button></div>
-      <div class="i-hero">${l.emoji}</div>
+      ${heroHTML}
       <div class="i-seller">
         <div class="i-sav">${l.seller_initials||'??'}</div>
         <div style="flex:1">
@@ -727,7 +755,7 @@ async function openItem(id) {
     document.getElementById('item-modal').innerHTML = `<div class="es"><div class="es-i">⚠️</div><div class="es-t">${e.message}</div></div><button class="btn" onclick="closeOv('ov-item')">Close</button>`;
   }
 }
-
+ 
 async function buyNow(id) {
   try {
     const d = await api('POST', `/api/listings/${id}/buy`);
@@ -737,7 +765,7 @@ async function buyNow(id) {
     toast('Purchase complete! 🎉', 's');
   } catch(e) { toast(e.message, 'e'); }
 }
-
+ 
 async function placeBid(id) {
   const amt = parseInt(document.getElementById('bid-amt').value || 0);
   try {
@@ -746,7 +774,7 @@ async function placeBid(id) {
     toast('Bid of ◈ ' + amt.toLocaleString() + ' placed!', 'g');
   } catch(e) { toast(e.message, 'e'); }
 }
-
+ 
 async function removeListing(id) {
   try {
     await api('DELETE', `/api/listings/${id}`);
@@ -756,12 +784,14 @@ async function removeListing(id) {
     toast('Listing removed');
   } catch(e) { toast(e.message, 'e'); }
 }
-
+ 
 // ── LIST MODAL ──
 function openListModal(editId) {
   editingId = editId || null;
   selEmoji = '📦';
   document.getElementById('lm-title').textContent = editId ? 'Edit Listing' : 'New Listing';
+  window._uploadedImageUrl = '';
+  removePhoto();
   buildEPicker();
   if (!editId) {
     document.getElementById('f-title').value = '';
@@ -781,20 +811,20 @@ function openListModal(editId) {
   }
   openOv('ov-list');
 }
-
+ 
 function buildEPicker() {
   const emojis = ['🍅','🌿','🍞','🍯','🎨','🧺','🛠','💻','📚','🎸','🕯️','🌻','🍋','🫐','🧀','⚡','📷','🎁','👗','🪴','🔌','📦','🐣','🎵','🪡'];
   document.getElementById('emoji-pk').innerHTML = emojis.map(e =>
     `<button type="button" class="eo ${e===selEmoji?'on':''}" onclick="pickEmoji('${e}',this)">${e}</button>`
   ).join('');
 }
-
+ 
 function pickEmoji(e, el) {
   selEmoji = e;
   document.querySelectorAll('.eo').forEach(b => b.classList.remove('on'));
   el.classList.add('on');
 }
-
+ 
 async function submitListing() {
   const title = document.getElementById('f-title').value.trim();
   const description = document.getElementById('f-desc').value.trim();
@@ -802,13 +832,14 @@ async function submitListing() {
   const category = document.getElementById('f-cat').value;
   const condition = document.getElementById('f-cond').value;
   const type = document.getElementById('f-type').value;
+  const image_url = window._uploadedImageUrl || '';
   if (!title || !price) { toast('Title and price required', 'e'); return; }
   try {
     if (editingId) {
-      await api('PUT', `/api/listings/${editingId}`, { title, description, category, emoji: selEmoji, price, type, condition });
+      await api('PUT', `/api/listings/${editingId}`, { title, description, category, emoji: selEmoji, price, type, condition, image_url });
       toast('Listing updated!');
     } else {
-      await api('POST', '/api/listings', { title, description, category, emoji: selEmoji, price, type, condition });
+      await api('POST', '/api/listings', { title, description, category, emoji: selEmoji, price, type, condition, image_url });
       toast('Listing published! 🎉', 's');
     }
     closeOv('ov-list');
@@ -816,7 +847,7 @@ async function submitListing() {
     loadCatalog();
   } catch(e) { toast(e.message, 'e'); }
 }
-
+ 
 async function aiDesc() {
   const title = document.getElementById('f-title').value.trim();
   const cat = document.getElementById('f-cat').value;
@@ -835,7 +866,7 @@ async function aiDesc() {
   } catch { ta.value = ''; toast('AI generation failed', 'e'); }
   ta.disabled = false;
 }
-
+ 
 // ── WALLET ──
 async function loadWallet() {
   await refreshMe();
@@ -849,7 +880,7 @@ async function loadWallet() {
   document.getElementById('w-trd').textContent = (me.trade_count||0).toLocaleString();
   renderTxList(txs);
 }
-
+ 
 async function setTxF(f, el) {
   txMode = f;
   document.querySelectorAll('.txfb').forEach(b => b.classList.remove('on'));
@@ -858,7 +889,7 @@ async function setTxF(f, el) {
   const txs = await api('GET', '/api/transactions' + params);
   renderTxList(txs);
 }
-
+ 
 function renderTxList(txs) {
   const el = document.getElementById('tx-list');
   if (!txs.length) { el.innerHTML = '<div class="es"><div class="es-i">📭</div><div class="es-t">No transactions</div></div>'; return; }
@@ -870,7 +901,7 @@ function renderTxList(txs) {
       <div class="txa ${t.type}">${t.type==='out'?'-':'+'} ◈ ${t.amount.toLocaleString()}</div>
     </div>`).join('');
 }
-
+ 
 // ── PROFILE ──
 async function loadProfile() {
   await refreshMe();
@@ -898,14 +929,14 @@ async function loadProfile() {
       <div class="rev-text">${r.text}</div>
     </div>`).join('');
 }
-
+ 
 function openEditProfile() {
   document.getElementById('ep-name').value = me.name;
   document.getElementById('ep-bio').value = me.bio || '';
   document.getElementById('ep-loc').value = me.location || '';
   openOv('ov-profile');
 }
-
+ 
 async function saveProfile() {
   const name = document.getElementById('ep-name').value.trim();
   const bio = document.getElementById('ep-bio').value.trim();
@@ -918,7 +949,7 @@ async function saveProfile() {
     toast('Profile updated!');
   } catch(e) { toast(e.message, 'e'); }
 }
-
+ 
 // ── CATALOG ──
 async function loadCatalog() {
   const all = await api('GET', '/api/listings?sort=new');
@@ -940,18 +971,18 @@ async function loadCatalog() {
   }).join('');
   grid.innerHTML = cards + `<button class="add-card" onclick="openListModal()"><i class="fas fa-plus"></i><span>Add new listing</span></button>`;
 }
-
+ 
 // ── AI ASSISTANT ──
 function toggleAI() {
   aiOpen = !aiOpen;
   document.getElementById('ai-panel').classList.toggle('open', aiOpen);
 }
-
+ 
 function addAIWelcome() {
   aiHistory = [];
   addAIMsg(`Hi ${me.name.split(' ')[0]}! 👋 I'm your Barter AI, powered by Claude.\n\nI can help you write listing descriptions, suggest what to trade, find great deals, or explain how Barter works. What can I help with?`, 'a');
 }
-
+ 
 function addAIMsg(text, role) {
   const el = document.getElementById('ai-msgs');
   const d = document.createElement('div');
@@ -961,33 +992,33 @@ function addAIMsg(text, role) {
   el.scrollTop = el.scrollHeight;
   if (role !== 't') aiHistory.push({ role: role==='u'?'user':'assistant', content: text });
 }
-
+ 
 function aiQ(text) {
   if (!aiOpen) toggleAI();
   document.getElementById('ai-ta').value = text;
   sendAI();
 }
-
+ 
 async function sendAI() {
   const ta = document.getElementById('ai-ta');
   const text = ta.value.trim();
   if (!text) return;
   ta.value = '';
   addAIMsg(text, 'u');
-
+ 
   const thinking = document.createElement('div');
   thinking.className = 'ai-msg t';
   thinking.textContent = 'Claude is thinking…';
   document.getElementById('ai-msgs').appendChild(thinking);
   document.getElementById('ai-msgs').scrollTop = 99999;
-
+ 
   try {
     const system = `You are the AI assistant for Barter, a community barter platform with universal basic income (500 ◈BC per month to all members).
-
+ 
 Current user: ${me.name}, Balance: ◈${me.balance} CC, Bio: "${me.bio||'N/A'}", Location: ${me.location||'unknown'}, Rating: ${me.rating||5}/5, Trades: ${me.trade_count||0}.
-
+ 
 Be helpful, warm, and community-focused. Keep replies under 200 words. Use ◈ for coin amounts. You can help with: writing listing descriptions, pricing advice, barter suggestions, explaining platform features.`;
-
+ 
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1002,12 +1033,12 @@ Be helpful, warm, and community-focused. Keep replies under 200 words. Use ◈ f
     addAIMsg('Connection error — please try again.', 'a');
   }
 }
-
+ 
 // ── OVERLAYS ──
 function openOv(id) { document.getElementById(id).classList.add('open'); }
 function closeOv(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', e => { if (e.target.classList.contains('ov')) e.target.classList.remove('open'); });
-
+ 
 // ── TOAST ──
 function toast(msg, type = '') {
   const c = document.getElementById('tc');
@@ -1019,7 +1050,66 @@ function toast(msg, type = '') {
   requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
   setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 280); }, 2800);
 }
-
+ 
+ 
+// ── PHOTO UPLOAD ──
+window._uploadedImageUrl = '';
+ 
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('photo-drop').classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) uploadPhoto(file);
+}
+ 
+function handlePhotoSelect(input) {
+  if (input.files[0]) uploadPhoto(input.files[0]);
+}
+ 
+async function uploadPhoto(file) {
+  if (file.size > 10 * 1024 * 1024) { toast('Image must be under 10MB', 'e'); return; }
+  document.getElementById('photo-label').textContent = 'Uploading…';
+  document.getElementById('upload-prog').classList.add('show');
+  const bar = document.getElementById('upload-bar');
+  bar.style.width = '20%';
+  try {
+    const sign = await api('GET', '/api/upload/sign');
+    bar.style.width = '40%';
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('api_key', sign.apiKey);
+    fd.append('timestamp', sign.timestamp);
+    fd.append('signature', sign.signature);
+    fd.append('folder', sign.folder);
+    const r = await fetch(`https://api.cloudinary.com/v1_1/${sign.cloudName}/image/upload`, { method:'POST', body:fd });
+    bar.style.width = '90%';
+    const d = await r.json();
+    if (d.secure_url) {
+      window._uploadedImageUrl = d.secure_url;
+      const prev = document.getElementById('photo-preview');
+      prev.src = d.secure_url;
+      prev.classList.add('show');
+      document.getElementById('photo-rm').classList.add('show');
+      document.getElementById('photo-label').textContent = '✓ Photo uploaded';
+      bar.style.width = '100%';
+      setTimeout(() => document.getElementById('upload-prog').classList.remove('show'), 600);
+    } else { throw new Error(d.error?.message || 'Upload failed'); }
+  } catch(e) {
+    document.getElementById('photo-label').textContent = 'Click or drag a photo here';
+    document.getElementById('upload-prog').classList.remove('show');
+    toast(e.message || 'Upload failed', 'e');
+  }
+}
+ 
+function removePhoto() {
+  window._uploadedImageUrl = '';
+  document.getElementById('photo-preview').classList.remove('show');
+  document.getElementById('photo-preview').src = '';
+  document.getElementById('photo-rm').classList.remove('show');
+  document.getElementById('photo-label').textContent = 'Click or drag a photo here';
+  document.getElementById('photo-input').value = '';
+}
+ 
 // ── BOOT ──
 if (token) {
   api('GET', '/api/auth/me').then(user => {
