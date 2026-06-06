@@ -265,9 +265,9 @@ function seedDemoData() {
   for (const u of demoUsers) {
     const initials = u.name.split(' ').map(w => w[0]).join('').toUpperCase();
     const sInvCode = 'INV-' + Math.random().toString(36).slice(2,8).toUpperCase();
-    run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+    run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
       u.id, u.name, u.email, hashPassword(u.pass), u.bio, u.location, initials,
-      u.balance, u.rating, u.reviews, u.trades, '2024-01', '2024-01-15', 1, sInvCode, '', 0, 0, now
+      u.balance, u.rating, u.reviews, u.trades, '2024-01', '2024-01-15', 1, sInvCode, '', 0, 0, 0, 0, now
     ]);
   }
 
@@ -362,9 +362,9 @@ app.post('/api/auth/register', (req, res) => {
   const now = Date.now();
 
   const invCode = 'INV-' + Math.random().toString(36).slice(2,8).toUpperCase();
-  run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+  run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
     id, name, email, hashPassword(password), bio || '', location || '',
-    initials, 500, 5.0, 0, 0, '', joinDate, 0, invCode, referredBy||'', 0, 0, now
+    initials, 500, 5.0, 0, 0, '', joinDate, 0, invCode, referredBy||'', 0, 0, 0, 0, now
   ]);
 
   // Welcome UBI
