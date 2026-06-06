@@ -21,6 +21,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Landing page at root, app at /app
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'landing.html')));
+app.get('/app', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+
 // ─────────────────────────────────────────────
 // DATABASE SETUP
 // ─────────────────────────────────────────────
@@ -55,6 +59,13 @@ async function initDB() {
       trade_count INTEGER DEFAULT 0,
       last_ubi TEXT DEFAULT '',
       join_date TEXT NOT NULL,
+      verified INTEGER DEFAULT 0,
+      invite_code TEXT DEFAULT '',
+      referred_by TEXT DEFAULT '',
+      featured_until INTEGER DEFAULT 0,
+      premium INTEGER DEFAULT 0,
+      location_lat REAL DEFAULT 0,
+      location_lng REAL DEFAULT 0,
       created_at INTEGER NOT NULL
     )
   `);
@@ -72,6 +83,7 @@ async function initDB() {
       condition TEXT DEFAULT 'Good',
       status TEXT DEFAULT 'active',
       image_url TEXT DEFAULT '',
+      featured_until INTEGER DEFAULT 0,
       created_at INTEGER NOT NULL,
       FOREIGN KEY (seller_id) REFERENCES users(id)
     )
@@ -115,6 +127,50 @@ async function initDB() {
       created_at INTEGER NOT NULL,
       FOREIGN KEY (reviewer_id) REFERENCES users(id),
       FOREIGN KEY (reviewee_id) REFERENCES users(id)
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS messages (
+      id TEXT PRIMARY KEY,
+      sender_id TEXT NOT NULL,
+      receiver_id TEXT NOT NULL,
+      listing_id TEXT,
+      text TEXT NOT NULL,
+      read INTEGER DEFAULT 0,
+      created_at INTEGER NOT NULL
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS trades (
+      id TEXT PRIMARY KEY,
+      listing_id TEXT NOT NULL,
+      buyer_id TEXT NOT NULL,
+      seller_id TEXT NOT NULL,
+      amount INTEGER NOT NULL,
+      status TEXT DEFAULT 'pending',
+      created_at INTEGER NOT NULL
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS invites (
+      id TEXT PRIMARY KEY,
+      inviter_id TEXT NOT NULL,
+      code TEXT UNIQUE NOT NULL,
+      used_by TEXT DEFAULT '',
+      created_at INTEGER NOT NULL
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS reports (
+      id TEXT PRIMARY KEY,
+      reporter_id TEXT NOT NULL,
+      listing_id TEXT NOT NULL,
+      reason TEXT NOT NULL,
+      created_at INTEGER NOT NULL
     )
   `);
 
@@ -208,9 +264,10 @@ function seedDemoData() {
   const now = Date.now();
   for (const u of demoUsers) {
     const initials = u.name.split(' ').map(w => w[0]).join('').toUpperCase();
-    run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+    const sInvCode = 'INV-' + Math.random().toString(36).slice(2,8).toUpperCase();
+    run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
       u.id, u.name, u.email, hashPassword(u.pass), u.bio, u.location, initials,
-      u.balance, u.rating, u.reviews, u.trades, '2024-01', '2024-01-15', now
+      u.balance, u.rating, u.reviews, u.trades, '2024-01', '2024-01-15', 1, sInvCode, '', 0, 0, now
     ]);
   }
 
@@ -230,8 +287,8 @@ function seedDemoData() {
   ];
 
   for (const [id, sid, title, desc, cat, emoji, price, type, cond] of listings) {
-    run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
-      [id, sid, title, desc, cat, emoji, price, type, cond, 'active', '', now - Math.random() * 8 * 86400000]);
+    run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [id, sid, title, desc, cat, emoji, price, type, cond, 'active', '', 0, now - Math.random() * 8 * 86400000]);
   }
 
   // Sample bids
@@ -280,7 +337,20 @@ function seedDemoData() {
 // AUTH ROUTES
 // ─────────────────────────────────────────────
 app.post('/api/auth/register', (req, res) => {
-  const { name, email, password, bio, location } = req.body;
+  const { name, email, password, bio, location, invite_code } = req.body;
+  let referredBy = '';
+  if (invite_code) {
+    const inv = query('SELECT * FROM invites WHERE code = ? AND used_by = ?', [invite_code, '']);
+    if (inv.length) {
+      referredBy = inv[0].inviter_id;
+      // Bonus coins for inviter
+      run('UPDATE users SET balance = balance + 100 WHERE id = ?', [referredBy]);
+      run('UPDATE invites SET used_by = ? WHERE code = ?', [email, invite_code]);
+      run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`, [
+        uuid(), referredBy, 'in', 'Referral bonus — friend joined!', 100, 'Barter Network', fmtDate(Date.now()), Date.now()
+      ]);
+    }
+  }
   if (!name || !email || !password) return res.status(400).json({ error: 'Name, email and password required' });
 
   const exists = query('SELECT id FROM users WHERE email = ?', [email]);
@@ -291,9 +361,10 @@ app.post('/api/auth/register', (req, res) => {
   const joinDate = new Date().toISOString().slice(0, 10);
   const now = Date.now();
 
-  run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
+  const invCode = 'INV-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  run(`INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, [
     id, name, email, hashPassword(password), bio || '', location || '',
-    initials, 500, 5.0, 0, 0, '', joinDate, now
+    initials, 500, 5.0, 0, 0, '', joinDate, 0, invCode, referredBy||'', 0, 0, now
   ]);
 
   // Welcome UBI
@@ -403,8 +474,8 @@ app.post('/api/listings', auth, (req, res) => {
   const { title, description, category, emoji, price, type, condition, image_url } = req.body;
   if (!title || !price) return res.status(400).json({ error: 'Title and price required' });
   const id = 'l' + uuid().slice(0, 8);
-  run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
-    [id, req.userId, title, description || '', category || 'Other', emoji || '📦', price, type || 'buy', condition || 'Good', 'active', image_url || '', Date.now()]);
+  run(`INSERT INTO listings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    [id, req.userId, title, description || '', category || 'Other', emoji || '📦', price, type || 'buy', condition || 'Good', 'active', image_url || '', 0, Date.now()]);
   saveDB();
   res.json({ id, message: 'Listing created' });
 });
@@ -428,32 +499,8 @@ app.delete('/api/listings/:id', auth, (req, res) => {
 });
 
 // ─────────────────────────────────────────────
-// BUY / BID
+// BUY / BID (escrow version in new routes below)
 // ─────────────────────────────────────────────
-app.post('/api/listings/:id/buy', auth, (req, res) => {
-  const rows = query('SELECT l.*, u.name as seller_name FROM listings l JOIN users u ON l.seller_id = u.id WHERE l.id = ?', [req.params.id]);
-  if (!rows.length) return res.status(404).json({ error: 'Listing not found' });
-  const l = rows[0];
-  if (l.status !== 'active') return res.status(400).json({ error: 'Listing no longer available' });
-  if (l.type !== 'buy') return res.status(400).json({ error: 'This listing is auction only' });
-  if (l.seller_id === req.userId) return res.status(400).json({ error: 'Cannot buy your own listing' });
-
-  const buyer = getUser(req.userId);
-  if (buyer.balance < l.price) return res.status(400).json({ error: 'Insufficient balance' });
-
-  const now = Date.now();
-  const dateStr = fmtDate(now);
-
-  run('UPDATE users SET balance = balance - ?, trade_count = trade_count + 1 WHERE id = ?', [l.price, req.userId]);
-  run('UPDATE users SET balance = balance + ? WHERE id = ?', [l.price, l.seller_id]);
-  run("UPDATE listings SET status = 'sold' WHERE id = ?", [l.id]);
-
-  run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`, [uuid(), req.userId, 'out', `${l.title} from ${l.seller_name}`, l.price, l.seller_name, dateStr, now]);
-  run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`, [uuid(), l.seller_id, 'in', `${l.title} sold to ${buyer.name}`, l.price, buyer.name, dateStr, now]);
-
-  saveDB();
-  res.json({ message: 'Purchase complete', newBalance: buyer.balance - l.price });
-});
 
 app.post('/api/listings/:id/bid', auth, (req, res) => {
   const { amount } = req.body;
@@ -512,6 +559,160 @@ app.post('/api/reviews', auth, (req, res) => {
   run('UPDATE users SET rating = ?, review_count = ? WHERE id = ?', [Math.round(avg * 10) / 10, allRatings.length, revieweeId]);
   saveDB();
   res.json({ message: 'Review posted' });
+});
+
+
+// ─────────────────────────────────────────────
+// MESSAGING
+// ─────────────────────────────────────────────
+app.get('/api/messages', auth, (req, res) => {
+  const convos = query(`
+    SELECT DISTINCT
+      CASE WHEN sender_id = ? THEN receiver_id ELSE sender_id END as other_id,
+      u.name as other_name, u.initials as other_initials,
+      MAX(m.created_at) as last_time,
+      (SELECT text FROM messages WHERE (sender_id=? AND receiver_id=other_id) OR (sender_id=other_id AND receiver_id=?) ORDER BY created_at DESC LIMIT 1) as last_msg,
+      SUM(CASE WHEN m.receiver_id=? AND m.read=0 THEN 1 ELSE 0 END) as unread
+    FROM messages m
+    JOIN users u ON u.id = CASE WHEN sender_id=? THEN receiver_id ELSE sender_id END
+    WHERE sender_id=? OR receiver_id=?
+    GROUP BY other_id ORDER BY last_time DESC
+  `, [req.userId,req.userId,req.userId,req.userId,req.userId,req.userId,req.userId]);
+  res.json(convos);
+});
+
+app.get('/api/messages/:userId', auth, (req, res) => {
+  const msgs = query(`SELECT m.*, u.name as sender_name, u.initials as sender_initials
+    FROM messages m JOIN users u ON u.id = m.sender_id
+    WHERE (sender_id=? AND receiver_id=?) OR (sender_id=? AND receiver_id=?)
+    ORDER BY created_at ASC`, [req.userId, req.params.userId, req.params.userId, req.userId]);
+  run('UPDATE messages SET read=1 WHERE receiver_id=? AND sender_id=?', [req.userId, req.params.userId]);
+  res.json(msgs);
+});
+
+app.post('/api/messages', auth, (req, res) => {
+  const { receiverId, text, listingId } = req.body;
+  if (!receiverId || !text) return res.status(400).json({ error: 'Receiver and text required' });
+  const id = uuid();
+  run(`INSERT INTO messages VALUES (?,?,?,?,?,?,?)`,
+    [id, req.userId, receiverId, listingId||null, text, 0, Date.now()]);
+  saveDB();
+  res.json({ id, message: 'Sent' });
+});
+
+app.get('/api/messages/unread/count', auth, (req, res) => {
+  const r = query('SELECT COUNT(*) as c FROM messages WHERE receiver_id=? AND read=0', [req.userId]);
+  res.json({ count: r[0].c });
+});
+
+// ─────────────────────────────────────────────
+// TRADE ESCROW
+// ─────────────────────────────────────────────
+app.post('/api/listings/:id/buy', auth, (req, res) => {
+  const rows = query('SELECT l.*, u.name as seller_name FROM listings l JOIN users u ON l.seller_id = u.id WHERE l.id = ?', [req.params.id]);
+  if (!rows.length) return res.status(404).json({ error: 'Listing not found' });
+  const l = rows[0];
+  if (l.status !== 'active') return res.status(400).json({ error: 'Listing no longer available' });
+  if (l.type !== 'buy') return res.status(400).json({ error: 'This listing is auction only' });
+  if (l.seller_id === req.userId) return res.status(400).json({ error: 'Cannot buy your own listing' });
+  const buyer = getUser(req.userId);
+  if (buyer.balance < l.price) return res.status(400).json({ error: 'Insufficient balance' });
+  const now = Date.now();
+  const tradeId = uuid();
+  // Hold coins in escrow - deduct from buyer, not yet given to seller
+  run('UPDATE users SET balance = balance - ? WHERE id = ?', [l.price, req.userId]);
+  run("UPDATE listings SET status='escrow' WHERE id=?", [l.id]);
+  run(`INSERT INTO trades VALUES (?,?,?,?,?,?,?)`,
+    [tradeId, l.id, req.userId, l.seller_id, l.price, 'pending', now]);
+  run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`,
+    [uuid(), req.userId, 'out', `${l.title} — held in escrow`, l.price, l.seller_name, fmtDate(now), now]);
+  saveDB();
+  res.json({ message: 'Purchase in escrow — confirm receipt to release payment', tradeId, newBalance: buyer.balance - l.price });
+});
+
+app.post('/api/trades/:id/confirm', auth, (req, res) => {
+  const trades = query('SELECT * FROM trades WHERE id=? AND buyer_id=?', [req.params.id, req.userId]);
+  if (!trades.length) return res.status(404).json({ error: 'Trade not found' });
+  const trade = trades[0];
+  if (trade.status !== 'pending') return res.status(400).json({ error: 'Trade already completed' });
+  const seller = getUser(trade.seller_id);
+  const listing = query('SELECT * FROM listings WHERE id=?', [trade.listing_id])[0];
+  const now = Date.now();
+  run('UPDATE users SET balance=balance+?, trade_count=trade_count+1 WHERE id=?', [trade.amount, trade.seller_id]);
+  run('UPDATE users SET trade_count=trade_count+1 WHERE id=?', [req.userId]);
+  run("UPDATE listings SET status='sold' WHERE id=?", [trade.listing_id]);
+  run("UPDATE trades SET status='completed' WHERE id=?", [trade.id]);
+  run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`,
+    [uuid(), trade.seller_id, 'in', `${listing?.title||'Item'} sold — escrow released`, trade.amount, getUser(req.userId).name, fmtDate(now), now]);
+  saveDB();
+  res.json({ message: 'Payment released to seller! Trade complete.' });
+});
+
+app.post('/api/trades/:id/dispute', auth, (req, res) => {
+  const trades = query('SELECT * FROM trades WHERE id=? AND (buyer_id=? OR seller_id=?)', [req.params.id, req.userId, req.userId]);
+  if (!trades.length) return res.status(404).json({ error: 'Trade not found' });
+  run("UPDATE trades SET status='disputed' WHERE id=?", [req.params.id]);
+  saveDB();
+  res.json({ message: 'Dispute raised. Admin will review within 24 hours.' });
+});
+
+app.get('/api/trades', auth, (req, res) => {
+  const trades = query(`SELECT t.*, l.title as listing_title, l.emoji, l.image_url,
+    b.name as buyer_name, b.initials as buyer_initials,
+    s.name as seller_name, s.initials as seller_initials
+    FROM trades t
+    JOIN listings l ON l.id=t.listing_id
+    JOIN users b ON b.id=t.buyer_id
+    JOIN users s ON s.id=t.seller_id
+    WHERE t.buyer_id=? OR t.seller_id=?
+    ORDER BY t.created_at DESC`, [req.userId, req.userId]);
+  res.json(trades);
+});
+
+// ─────────────────────────────────────────────
+// INVITES
+// ─────────────────────────────────────────────
+app.get('/api/invites/my', auth, (req, res) => {
+  const user = getUser(req.userId);
+  // Generate invite if none
+  let inv = query('SELECT * FROM invites WHERE inviter_id=?', [req.userId]);
+  if (!inv.length) {
+    const code = 'INV-' + Math.random().toString(36).slice(2,8).toUpperCase();
+    run(`INSERT INTO invites VALUES (?,?,?,?,?)`, [uuid(), req.userId, code, '', Date.now()]);
+    saveDB();
+    inv = query('SELECT * FROM invites WHERE inviter_id=?', [req.userId]);
+  }
+  const used = inv.filter(i => i.used_by).length;
+  res.json({ invites: inv, used, bonus_per_invite: 100 });
+});
+
+// ─────────────────────────────────────────────
+// REPORTS
+// ─────────────────────────────────────────────
+app.post('/api/reports', auth, (req, res) => {
+  const { listingId, reason } = req.body;
+  if (!listingId || !reason) return res.status(400).json({ error: 'Listing and reason required' });
+  run(`INSERT INTO reports VALUES (?,?,?,?,?)`, [uuid(), req.userId, listingId, reason, Date.now()]);
+  saveDB();
+  res.json({ message: 'Report submitted. Thank you for keeping Barter safe.' });
+});
+
+// ─────────────────────────────────────────────
+// FEATURED LISTINGS
+// ─────────────────────────────────────────────
+app.post('/api/listings/:id/feature', auth, (req, res) => {
+  const FEATURE_COST = 50;
+  const l = query('SELECT * FROM listings WHERE id=? AND seller_id=?', [req.params.id, req.userId]);
+  if (!l.length) return res.status(403).json({ error: 'Not authorized' });
+  const user = getUser(req.userId);
+  if (user.balance < FEATURE_COST) return res.status(400).json({ error: 'Not enough ◈BC (costs 50 ◈BC)' });
+  const until = Date.now() + 7 * 24 * 3600 * 1000; // 7 days
+  run('UPDATE users SET balance=balance-? WHERE id=?', [FEATURE_COST, req.userId]);
+  run('UPDATE listings SET featured_until=? WHERE id=?', [until, req.params.id]);
+  run(`INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?)`,
+    [uuid(), req.userId, 'out', `Featured listing: ${l[0].title}`, FEATURE_COST, 'Barter Network', fmtDate(Date.now()), Date.now()]);
+  saveDB();
+  res.json({ message: 'Listing featured for 7 days!' });
 });
 
 // ─────────────────────────────────────────────

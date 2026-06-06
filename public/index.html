@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barter ◈ — Community Trade Network</title>
+<meta name="description" content="Trade goods and services with your community. Get 500 free coins every month.">
+<meta name="theme-color" content="#12100E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Barter">
+<link rel="manifest" href="/manifest.json">
+<meta property="og:title" content="Barter ◈ — Community Trade Network">
+<meta property="og:description" content="Trade goods and services. Get 500 free coins every month.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +33,7 @@
 }
 body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:100vh;font-size:14px}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream2)}::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:3px}
- 
+
 /* ── AUTH ── */
 #auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden}
 #auth-screen::before{content:'◈';position:absolute;font-size:700px;opacity:.025;color:var(--gold-l);top:50%;left:50%;transform:translate(-50%,-52%);font-family:var(--ff);pointer-events:none;line-height:1}
@@ -47,11 +56,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .auth-link{font-size:12px;color:var(--ink3);text-align:center;margin-top:14px}
 .auth-link a{color:var(--gold);cursor:pointer}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
- 
+
 /* ── APP ── */
 #app{display:none;min-height:100vh;flex-direction:column}
 #app.on{display:flex}
- 
+
 /* ── TOPBAR ── */
 .topbar{background:var(--ink);height:54px;display:flex;align-items:center;padding:0 20px;gap:14px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.05)}
 .tb-brand{display:flex;align-items:center;gap:8px;color:var(--gold-ll);font-family:var(--ff);font-size:17px;font-weight:600;letter-spacing:-.2px;flex-shrink:0;cursor:pointer}
@@ -66,11 +75,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink);cursor:pointer;border:2px solid rgba(255,255,255,.08)}
 .tb-logout{background:none;border:none;color:rgba(255,255,255,.28);font-size:12px;padding:4px 8px;cursor:pointer;transition:color .14s}
 .tb-logout:hover{color:rgba(255,255,255,.7)}
- 
+
 /* ── MAIN ── */
 .main{flex:1;padding:22px 20px;max-width:1080px;margin:0 auto;width:100%}
 .page{display:none}.page.on{display:block}
- 
+
 /* ── COMPONENTS ── */
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border:1.5px solid var(--cream3);background:#fff;color:var(--ink);border-radius:var(--rs);font-size:13px;cursor:pointer;transition:all .14s;font-family:var(--fb);white-space:nowrap}
 .btn:hover{background:var(--cream2)}
@@ -80,14 +89,14 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .btn-danger{background:var(--red-l);color:var(--red);border-color:rgba(139,32,32,.15)}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-lg{padding:12px 24px;font-size:15px}
- 
+
 .card{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:18px}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .sec-title{font-size:16px;font-weight:600;font-family:var(--ff)}
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:14px}
 .pt{font-size:26px;letter-spacing:-.5px}
 .ps{font-size:13px;color:var(--ink3);margin-top:2px;font-weight:300}
- 
+
 /* ── UBI BANNER ── */
 .ubi-banner{background:var(--ink);border-radius:var(--rl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;overflow:hidden}
 .ubi-banner::after{content:'◈';position:absolute;right:-16px;top:-28px;font-size:160px;opacity:.04;color:var(--gold);font-family:var(--ff);pointer-events:none}
@@ -97,7 +106,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .ubi-cd{text-align:right;position:relative;z-index:1}
 .ubi-cd-val{font-size:26px;font-weight:700;color:var(--gold-l);font-family:var(--ff);line-height:1}
 .ubi-cd-lab{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px}
- 
+
 /* ── STATS GRID ── */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
 .sc{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px}
@@ -108,7 +117,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .si.ink{background:var(--cream2);color:var(--ink)}
 .sv{font-size:24px;font-weight:700;font-family:var(--ff);line-height:1}
 .sl{font-size:11px;color:var(--ink3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
- 
+
 /* ── MARKET ── */
 .mc{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .sw{position:relative;flex:1;min-width:200px}
@@ -135,7 +144,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .lp{font-size:17px;font-weight:700;color:var(--gold);font-family:var(--ff)}
 .lp span{font-size:11px;font-weight:400;color:var(--ink3);font-family:var(--fb)}
 .lbc{font-size:11px;color:var(--ink4);display:flex;align-items:center;gap:3px}
- 
+
 /* ── WALLET ── */
 .who{background:var(--ink);border-radius:var(--rl);padding:26px 30px;position:relative;overflow:hidden;margin-bottom:22px}
 .who::before{content:'◈◈◈';position:absolute;right:-50px;bottom:-24px;font-size:110px;opacity:.04;color:var(--gold);letter-spacing:-14px;font-family:var(--ff);pointer-events:none}
@@ -160,7 +169,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .txdt{font-size:11px;color:var(--ink4)}
 .txa{font-size:14px;font-weight:700}
 .txa.in{color:var(--green)}.txa.out{color:var(--red)}.txa.ubi{color:var(--gold)}
- 
+
 /* ── PROFILE ── */
 .pcard{background:#fff;border:1px solid var(--cream3);border-radius:var(--rl);padding:26px;margin-bottom:18px;display:flex;gap:22px;align-items:flex-start}
 .pav{width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:var(--ink);font-family:var(--ff);flex-shrink:0;box-shadow:0 4px 18px rgba(184,134,11,.28)}
@@ -185,7 +194,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .rev-date{font-size:11px;color:var(--ink4)}
 .rev-stars{color:var(--gold-l);font-size:13px}
 .rev-text{font-size:13px;color:var(--ink2);line-height:1.6}
- 
+
 /* ── CATALOG ── */
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:13px}
 .ci{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:15px;transition:box-shadow .14s}
@@ -214,8 +223,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .upload-prog.show{display:block}
 .upload-prog-bar{height:100%;width:0%;background:var(--gold);transition:width .3s}
 .lthumb img{width:100%;height:100%;object-fit:cover}
- 
- 
+
+
 /* ── AI PANEL ── */
 .aip{position:fixed;right:0;top:54px;bottom:0;width:350px;background:#fff;border-left:1px solid var(--cream3);display:flex;flex-direction:column;z-index:90;transform:translateX(100%);transition:transform .28s ease;box-shadow:-4px 0 28px rgba(0,0,0,.09)}
 .aip.open{transform:translateX(0)}
@@ -242,7 +251,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .ai-tog:hover{background:var(--ink2);transform:scale(1.08)}
 .ai-tog.on{display:flex}
 .ai-tog-badge{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:var(--green);border-radius:50%;border:2px solid var(--ink);font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
- 
+
 /* ── OVERLAY / MODAL ── */
 .ov{position:fixed;inset:0;background:rgba(18,16,14,.6);z-index:150;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(2px)}
 .ov.open{display:flex}
@@ -273,28 +282,49 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 .bid-e{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(184,134,11,.08)}
 .bid-e:last-child{border:none}
 .bid-ir{display:flex;gap:7px}
- 
+
 /* ── TOAST ── */
 .tc{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none}
 .toast{background:var(--ink);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;box-shadow:var(--sh-lg);opacity:0;transform:translateY(7px);transition:all .22s;white-space:nowrap;display:flex;align-items:center;gap:7px}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.s{background:var(--green)}.toast.e{background:var(--red)}.toast.g{background:var(--gold)}
- 
+
 /* ── EMPTY ── */
 .es{text-align:center;padding:52px 18px;color:var(--ink3)}
 .es-i{font-size:44px;margin-bottom:11px;opacity:.45}
 .es-t{font-size:15px;font-family:var(--ff)}
 .es-s{font-size:13px;margin-top:5px}
- 
+
 /* ── LOADING ── */
 .spin{display:inline-block;width:20px;height:20px;border:2px solid var(--cream3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-row{display:flex;align-items:center;gap:10px;padding:30px;color:var(--ink3);justify-content:center}
- 
+
 /* ── STARS ── */
 .stars-g{color:var(--gold-l)}
- 
-@media(max-width:768px){
+
+.msg-bubble{max-width:72%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.msg-bubble.mine{background:var(--ink);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.msg-bubble.theirs{background:var(--cream2);color:var(--ink);align-self:flex-start;border-bottom-left-radius:3px}
+.msg-time{font-size:10px;opacity:.55;margin-top:3px;text-align:right}
+.convo-item{padding:11px 14px;border-bottom:1px solid var(--cream2);cursor:pointer;transition:background .12s;display:flex;align-items:center;gap:10px}
+.convo-item:hover,.convo-item.on{background:var(--cream)}
+.convo-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--ink);flex-shrink:0}
+.convo-name{font-size:13px;font-weight:500}
+.convo-last{font-size:11px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px}
+.trade-card{background:#fff;border:1px solid var(--cream3);border-radius:var(--r);padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.trade-thumb{width:54px;height:54px;border-radius:8px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden}
+.trade-thumb img{width:100%;height:100%;object-fit:cover}
+.trade-status{font-size:11px;padding:3px 9px;border-radius:8px;font-weight:500}
+.ts-pending{background:#FBF0C0;color:#B8860B}
+.ts-completed{background:var(--green-l);color:var(--green)}
+.ts-disputed{background:var(--red-l);color:var(--red)}
+.ts-escrow{background:var(--blue-l);color:var(--blue)}
+.invite-box{background:var(--ink);border-radius:var(--rl);padding:22px 26px;margin-bottom:20px;color:#fff;position:relative;overflow:hidden}
+.invite-box::after{content:"◈";position:absolute;right:-10px;top:-20px;font-size:140px;opacity:.04;font-family:var(--ff);pointer-events:none}
+.invite-code{font-family:monospace;font-size:20px;font-weight:700;color:var(--gold-l);letter-spacing:2px;margin:10px 0}
+.feat-banner{background:linear-gradient(135deg,var(--gold-bg),#fff);border:1.5px solid rgba(184,134,11,.3);border-radius:var(--rs);padding:6px 10px;font-size:11px;color:var(--gold);font-weight:500;display:inline-flex;align-items:center;gap:4px;position:absolute;top:9px;left:9px}
+@media(max-width:768px){@media(max-width:768px){
   .sg,.wg{grid-template-columns:1fr 1fr}
   .tb-nav .tn span{display:none}
   .aip{width:100%}
@@ -304,7 +334,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
 </style>
 </head>
 <body>
- 
+
 <!-- ══ AUTH ══ -->
 <div id="auth-screen">
   <div class="auth-card">
@@ -334,13 +364,14 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       <div class="fg"><label class="fl">Email</label><input class="fi" id="r-email" type="email" placeholder="your@email.com"></div>
       <div class="fg"><label class="fl">Password</label><input class="fi" id="r-pass" type="password" placeholder="Choose a password"></div>
       <div class="fg"><label class="fl">Bio <span style="font-weight:300;text-transform:none;letter-spacing:0">(what do you offer?)</span></label><input class="fi" id="r-bio" placeholder="I grow herbs and bake bread..."></div>
+      <div class="fg"><label class="fl">Invite Code <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional — get bonus coins!)</span></label><input class="fi" id="r-inv" placeholder="e.g. INV-ABC123"></div>
       <button class="btn-auth gold" onclick="register()">Join & Receive 500 ◈BC</button>
       <div class="auth-err" id="r-err"></div>
       <div class="auth-link" style="margin-top:10px">By joining you agree to barter in good faith and respect all members.</div>
     </div>
   </div>
 </div>
- 
+
 <!-- ══ APP ══ -->
 <div id="app">
   <nav class="topbar">
@@ -350,6 +381,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       <button class="tn" data-page="wallet" onclick="goPage('wallet')"><i class="fas fa-wallet"></i><span>Wallet</span></button>
       <button class="tn" data-page="profile" onclick="goPage('profile')"><i class="fas fa-user"></i><span>Profile</span></button>
       <button class="tn" data-page="catalog" onclick="goPage('catalog')"><i class="fas fa-list"></i><span>My Catalog</span></button>
+      <button class="tn" data-page="messages" onclick="goPage('messages')"><i class="fas fa-comments"></i><span>Messages</span><span class="msg-badge" id="msg-badge" style="display:none;background:#e24b4a;color:#fff;border-radius:10px;font-size:10px;padding:1px 5px;margin-left:3px">0</span></button>
+      <button class="tn" data-page="trades" onclick="goPage('trades')"><i class="fas fa-handshake"></i><span>Trades</span></button>
     </div>
     <div class="tb-r">
       <div class="bal-chip" onclick="goPage('wallet')">◈ <span id="tb-bal">0</span> BC</div>
@@ -357,7 +390,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       <button class="tb-logout" onclick="logout()" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
     </div>
   </nav>
- 
+
   <div class="main">
     <!-- MARKET PAGE -->
     <div class="page on" id="page-market">
@@ -390,7 +423,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       </div>
       <div id="m-grid" class="mgrid"></div>
     </div>
- 
+
     <!-- WALLET PAGE -->
     <div class="page" id="page-wallet">
       <div class="who">
@@ -415,7 +448,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       </div>
       <div class="txlist" id="tx-list"></div>
     </div>
- 
+
     <!-- PROFILE PAGE -->
     <div class="page" id="page-profile">
       <div class="pcard">
@@ -442,10 +475,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
         </div>
         <button class="btn btn-sm" onclick="openEditProfile()"><i class="fas fa-edit"></i> Edit</button>
       </div>
+      <div id="invite-section" style="margin-bottom:18px"></div>
       <div class="sec-head"><div class="sec-title">Community Reviews</div></div>
       <div id="p-reviews"></div>
     </div>
- 
+
     <!-- CATALOG PAGE -->
     <div class="page" id="page-catalog">
       <div class="ph">
@@ -454,9 +488,38 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
       </div>
       <div class="cgrid" id="c-grid"></div>
     </div>
+    <!-- MESSAGES PAGE -->
+    <div class="page" id="page-messages">
+      <div class="ph"><div><div class="pt">Messages</div><div class="ps">Chat with traders in the community</div></div></div>
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:16px;min-height:500px">
+        <div style="background:#fff;border:1px solid var(--cream3);border-radius:var(--r);overflow:hidden">
+          <div style="padding:12px 14px;border-bottom:1px solid var(--cream2);font-size:13px;font-weight:500;color:var(--ink2)">Conversations</div>
+          <div id="convo-list" style="overflow-y:auto;max-height:480px"></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--cream3);border-radius:var(--r);display:flex;flex-direction:column">
+          <div id="msg-thread-header" style="padding:12px 16px;border-bottom:1px solid var(--cream2);font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;min-height:50px">
+            <span style="color:var(--ink3);font-size:13px">Select a conversation or start a new one</span>
+          </div>
+          <div id="msg-thread" style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:380px"></div>
+          <div id="msg-input-area" style="padding:12px;border-top:1px solid var(--cream2);display:none">
+            <div style="display:flex;gap:8px">
+              <input class="fi" id="msg-input" placeholder="Type a message…" style="flex:1" onkeydown="if(event.key==='Enter')sendMsg()">
+              <button class="btn btn-dark" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRADES PAGE -->
+    <div class="page" id="page-trades">
+      <div class="ph"><div><div class="pt">My Trades</div><div class="ps">Track escrow, confirm receipts, manage disputes</div></div></div>
+      <div id="trades-list"></div>
+    </div>
+
   </div>
 </div>
- 
+
 <!-- ══ AI PANEL ══ -->
 <button class="ai-tog" id="ai-tog" onclick="toggleAI()">
   <i class="fas fa-robot"></i>
@@ -484,7 +547,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
- 
+
 <!-- ══ MODALS ══ -->
 <!-- List/Edit Item -->
 <div class="ov" id="ov-list">
@@ -533,10 +596,10 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
- 
+
 <!-- Item Detail -->
 <div class="ov" id="ov-item"><div class="modal" id="item-modal"></div></div>
- 
+
 <!-- Edit Profile -->
 <div class="ov" id="ov-profile">
   <div class="modal">
@@ -550,9 +613,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:1
     </div>
   </div>
 </div>
- 
+
 <div class="tc" id="tc"></div>
- 
+
 <script>
 // ── CONFIG ──
 const API = window.location.origin; // Same-origin
@@ -564,7 +627,7 @@ let curCat = 'All';
 let txMode = 'all';
 let aiOpen = false;
 let aiHistory = [];
- 
+
 // ── API HELPER ──
 async function api(method, path, body) {
   const opts = { method, headers: { 'Content-Type': 'application/json' } };
@@ -575,17 +638,17 @@ async function api(method, path, body) {
   if (!r.ok) throw new Error(d.error || 'Request failed');
   return d;
 }
- 
+
 // ── STARS ──
 function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n)); }
- 
+
 // ── AUTH ──
 function authTab(t) {
   document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', i === (t==='login'?0:1)));
   document.getElementById('af-login').style.display = t==='login'?'block':'none';
   document.getElementById('af-reg').style.display = t==='register'?'block':'none';
 }
- 
+
 async function login() {
   const email = document.getElementById('l-email').value.trim();
   const password = document.getElementById('l-pass').value;
@@ -599,25 +662,26 @@ async function login() {
     startApp();
   } catch(e) { errEl.textContent = e.message; }
 }
- 
+
 async function register() {
   const name = document.getElementById('r-name').value.trim();
   const email = document.getElementById('r-email').value.trim();
   const password = document.getElementById('r-pass').value;
   const bio = document.getElementById('r-bio').value.trim();
   const location = document.getElementById('r-loc').value.trim();
+  const invite_code = document.getElementById('r-inv')?.value.trim() || '';
   const errEl = document.getElementById('r-err');
   errEl.textContent = '';
   if (!name || !email || !password) { errEl.textContent = 'Please fill in all required fields.'; return; }
   try {
-    const d = await api('POST', '/api/auth/register', { name, email, password, bio, location });
+    const d = await api('POST', '/api/auth/register', { name, email, password, bio, location, invite_code });
     token = d.token; localStorage.setItem('barter_token', token);
     me = d.user;
     setTimeout(() => toast('Welcome! ◈ 500 CC added to your wallet 🎉', 'g'), 600);
     startApp();
   } catch(e) { errEl.textContent = e.message; }
 }
- 
+
 function logout() {
   token = null; me = null;
   localStorage.removeItem('barter_token');
@@ -626,7 +690,7 @@ function logout() {
   document.getElementById('ai-tog').classList.remove('on');
   if (aiOpen) { aiOpen = false; document.getElementById('ai-panel').classList.remove('open'); }
 }
- 
+
 // ── APP START ──
 function startApp() {
   document.getElementById('auth-screen').style.display = 'none';
@@ -636,37 +700,44 @@ function startApp() {
   loadListings();
   updateCountdown();
   setInterval(updateCountdown, 60000);
+  setInterval(updateMsgBadge, 15000);
   addAIWelcome();
+  // Check for ?invite or ?listing in URL
+  const sp = new URLSearchParams(window.location.search);
+  if (sp.get('listing')) { setTimeout(() => openItem(sp.get('listing')), 500); }
 }
- 
+
 function updateTopbar() {
   if (!me) return;
   document.getElementById('tb-bal').textContent = (me.balance || 0).toLocaleString();
   document.getElementById('tb-av').textContent = me.initials || me.name.slice(0,2).toUpperCase();
 }
- 
+
 async function refreshMe() {
   try { me = await api('GET', '/api/auth/me'); updateTopbar(); } catch {}
 }
- 
+
 // ── PAGES ──
 function goPage(p) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('on'));
   document.getElementById('page-' + p).classList.add('on');
   document.querySelectorAll('.tn').forEach(b => b.classList.remove('on'));
-  document.querySelector(`[data-page="${p}"]`).classList.add('on');
+  const btn = document.querySelector(`[data-page="${p}"]`);
+  if (btn) btn.classList.add('on');
   if (p === 'wallet') loadWallet();
-  if (p === 'profile') loadProfile();
+  if (p === 'profile') { loadProfile(); setTimeout(showInvites, 300); }
   if (p === 'catalog') loadCatalog();
+  if (p === 'messages') loadMessages();
+  if (p === 'trades') loadTrades();
 }
- 
+
 // ── UBI COUNTDOWN ──
 function updateCountdown() {
   const now = new Date(), next = new Date(now.getFullYear(), now.getMonth()+1, 1);
   const d = Math.floor((next-now)/86400000), h = Math.floor(((next-now)%86400000)/3600000);
   document.getElementById('ubi-cd').textContent = d + 'd ' + h + 'h';
 }
- 
+
 // ── MARKET ──
 function setCat(el, cat) {
   curCat = cat;
@@ -674,14 +745,14 @@ function setCat(el, cat) {
   el.classList.add('on');
   loadListings();
 }
- 
+
 async function loadListings() {
   const q = document.getElementById('m-q').value || '';
   const sort = document.getElementById('m-sort').value;
   const params = new URLSearchParams({ sort });
   if (curCat !== 'All') params.set('cat', curCat);
   if (q) params.set('q', q);
- 
+
   const grid = document.getElementById('m-grid');
   grid.innerHTML = '<div class="loading-row"><div class="spin"></div> Loading listings…</div>';
   try {
@@ -693,7 +764,7 @@ async function loadListings() {
     grid.innerHTML = items.map(l => {
       const topBid = l.bids && l.bids.length ? Math.max(...l.bids.map(b=>b.amount)) : null;
       return `<div class="lcard" onclick="openItem('${l.id}')">
-        <div class="lthumb">${l.image_url ? `<img src="${l.image_url}" alt="${l.title}" style="width:100%;height:100%;object-fit:cover">` : `<span>${l.emoji}</span>`}<span class="lbadge ${l.type==='bid'?'badge-auc':'badge-buy'}">${l.type==='bid'?'Auction':'Buy Now'}</span></div>
+        <div class="lthumb" style="position:relative">${l.image_url ? `<img src="${l.image_url}" alt="${l.title}" style="width:100%;height:100%;object-fit:cover">` : `<span>${l.emoji}</span>`}<span class="lbadge ${l.type==='bid'?'badge-auc':'badge-buy'}">${l.type==='bid'?'Auction':'Buy Now'}</span>${l.featured_until>Date.now()?'<span class="feat-banner"><i class="fas fa-star"></i> Featured</span>':''}</div>
         <div class="lbody">
           <div class="lt">${l.title}</div>
           <div class="lm"><span>${l.seller_name}</span><span>·</span><span class="stars-g">${stars(l.seller_rating||5)}</span><span>${(l.seller_rating||5).toFixed(1)} (${l.seller_reviews||0})</span></div>
@@ -708,7 +779,7 @@ async function loadListings() {
     grid.innerHTML = '<div class="es" style="grid-column:1/-1"><div class="es-i">⚠️</div><div class="es-t">Failed to load listings</div></div>';
   }
 }
- 
+
 // ── ITEM DETAIL ──
 async function openItem(id) {
   document.getElementById('item-modal').innerHTML = '<div class="loading-row"><div class="spin"></div> Loading…</div>';
@@ -721,7 +792,7 @@ async function openItem(id) {
     const heroHTML = l.image_url
       ? `<div style="height:220px;border-radius:var(--r);overflow:hidden;margin-bottom:18px"><img src="${l.image_url}" alt="${l.title}" style="width:100%;height:100%;object-fit:cover"></div>`
       : `<div class="i-hero">${l.emoji}</div>`;
- 
+
     let bidHTML = '';
     if (l.type === 'bid') {
       bidHTML = `<div class="bid-box">
@@ -730,10 +801,14 @@ async function openItem(id) {
         ${!isOwner ? `<div class="bid-ir"><input class="fi" id="bid-amt" type="number" placeholder="Min ◈ ${(topBid||l.price)+1}" style="flex:1"><button class="btn btn-dark" onclick="placeBid('${l.id}')"><i class="fas fa-gavel"></i> Bid</button></div>` : ''}
       </div>`;
     }
- 
+
     document.getElementById('item-modal').innerHTML = `
       <div class="mh">${l.title}<button class="mx" onclick="closeOv('ov-item')">×</button></div>
       ${heroHTML}
+      <div style="display:flex;gap:7px;margin-bottom:10px">
+        <button class="btn btn-sm btn-gold" onclick="shareListing({id:'${l.id}',title:'${l.title.replace(/'/g,"\'")}',price:${topBid||l.price}})"><i class="fas fa-share-alt"></i> Share</button>
+        <button class="btn btn-sm" onclick="showQR('${l.id}')"><i class="fas fa-qrcode"></i> QR Code</button>
+      </div>
       <div class="i-seller">
         <div class="i-sav">${l.seller_initials||'??'}</div>
         <div style="flex:1">
@@ -749,13 +824,16 @@ async function openItem(id) {
       </div>
       ${bidHTML}
       ${!isOwner && l.type==='buy' ? `<button class="btn btn-dark btn-lg" style="width:100%" onclick="buyNow('${l.id}')"><i class="fas fa-coins"></i> Buy Now · ◈ ${l.price.toLocaleString()} BC</button>` : ''}
-      ${isOwner ? `<div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-danger" style="flex:1" onclick="removeListing('${l.id}')"><i class="fas fa-trash"></i> Remove Listing</button></div>` : ''}
+      ${isOwner
+        ? `<div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-danger" style="flex:1" onclick="removeListing('${l.id}')"><i class="fas fa-trash"></i> Remove Listing</button><button class="btn btn-gold btn-sm" onclick="featureListing('${l.id}')"><i class="fas fa-star"></i> Feature (50 ◈BC)</button></div>`
+        : `<div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-sm" onclick="openMsg('${l.seller_id}','${l.seller_name}','${l.seller_initials}','${l.id}')"><i class="fas fa-comment"></i> Message Seller</button><button class="btn btn-danger btn-sm" onclick="reportListing('${l.id}')"><i class="fas fa-flag"></i> Report</button></div>`
+      }
     `;
   } catch(e) {
     document.getElementById('item-modal').innerHTML = `<div class="es"><div class="es-i">⚠️</div><div class="es-t">${e.message}</div></div><button class="btn" onclick="closeOv('ov-item')">Close</button>`;
   }
 }
- 
+
 async function buyNow(id) {
   try {
     const d = await api('POST', `/api/listings/${id}/buy`);
@@ -765,7 +843,7 @@ async function buyNow(id) {
     toast('Purchase complete! 🎉', 's');
   } catch(e) { toast(e.message, 'e'); }
 }
- 
+
 async function placeBid(id) {
   const amt = parseInt(document.getElementById('bid-amt').value || 0);
   try {
@@ -774,7 +852,7 @@ async function placeBid(id) {
     toast('Bid of ◈ ' + amt.toLocaleString() + ' placed!', 'g');
   } catch(e) { toast(e.message, 'e'); }
 }
- 
+
 async function removeListing(id) {
   try {
     await api('DELETE', `/api/listings/${id}`);
@@ -784,7 +862,7 @@ async function removeListing(id) {
     toast('Listing removed');
   } catch(e) { toast(e.message, 'e'); }
 }
- 
+
 // ── LIST MODAL ──
 function openListModal(editId) {
   editingId = editId || null;
@@ -811,20 +889,20 @@ function openListModal(editId) {
   }
   openOv('ov-list');
 }
- 
+
 function buildEPicker() {
   const emojis = ['🍅','🌿','🍞','🍯','🎨','🧺','🛠','💻','📚','🎸','🕯️','🌻','🍋','🫐','🧀','⚡','📷','🎁','👗','🪴','🔌','📦','🐣','🎵','🪡'];
   document.getElementById('emoji-pk').innerHTML = emojis.map(e =>
     `<button type="button" class="eo ${e===selEmoji?'on':''}" onclick="pickEmoji('${e}',this)">${e}</button>`
   ).join('');
 }
- 
+
 function pickEmoji(e, el) {
   selEmoji = e;
   document.querySelectorAll('.eo').forEach(b => b.classList.remove('on'));
   el.classList.add('on');
 }
- 
+
 async function submitListing() {
   const title = document.getElementById('f-title').value.trim();
   const description = document.getElementById('f-desc').value.trim();
@@ -847,7 +925,7 @@ async function submitListing() {
     loadCatalog();
   } catch(e) { toast(e.message, 'e'); }
 }
- 
+
 async function aiDesc() {
   const title = document.getElementById('f-title').value.trim();
   const cat = document.getElementById('f-cat').value;
@@ -866,7 +944,7 @@ async function aiDesc() {
   } catch { ta.value = ''; toast('AI generation failed', 'e'); }
   ta.disabled = false;
 }
- 
+
 // ── WALLET ──
 async function loadWallet() {
   await refreshMe();
@@ -880,7 +958,7 @@ async function loadWallet() {
   document.getElementById('w-trd').textContent = (me.trade_count||0).toLocaleString();
   renderTxList(txs);
 }
- 
+
 async function setTxF(f, el) {
   txMode = f;
   document.querySelectorAll('.txfb').forEach(b => b.classList.remove('on'));
@@ -889,7 +967,7 @@ async function setTxF(f, el) {
   const txs = await api('GET', '/api/transactions' + params);
   renderTxList(txs);
 }
- 
+
 function renderTxList(txs) {
   const el = document.getElementById('tx-list');
   if (!txs.length) { el.innerHTML = '<div class="es"><div class="es-i">📭</div><div class="es-t">No transactions</div></div>'; return; }
@@ -901,7 +979,7 @@ function renderTxList(txs) {
       <div class="txa ${t.type}">${t.type==='out'?'-':'+'} ◈ ${t.amount.toLocaleString()}</div>
     </div>`).join('');
 }
- 
+
 // ── PROFILE ──
 async function loadProfile() {
   await refreshMe();
@@ -929,14 +1007,14 @@ async function loadProfile() {
       <div class="rev-text">${r.text}</div>
     </div>`).join('');
 }
- 
+
 function openEditProfile() {
   document.getElementById('ep-name').value = me.name;
   document.getElementById('ep-bio').value = me.bio || '';
   document.getElementById('ep-loc').value = me.location || '';
   openOv('ov-profile');
 }
- 
+
 async function saveProfile() {
   const name = document.getElementById('ep-name').value.trim();
   const bio = document.getElementById('ep-bio').value.trim();
@@ -949,7 +1027,7 @@ async function saveProfile() {
     toast('Profile updated!');
   } catch(e) { toast(e.message, 'e'); }
 }
- 
+
 // ── CATALOG ──
 async function loadCatalog() {
   const all = await api('GET', '/api/listings?sort=new');
@@ -971,18 +1049,18 @@ async function loadCatalog() {
   }).join('');
   grid.innerHTML = cards + `<button class="add-card" onclick="openListModal()"><i class="fas fa-plus"></i><span>Add new listing</span></button>`;
 }
- 
+
 // ── AI ASSISTANT ──
 function toggleAI() {
   aiOpen = !aiOpen;
   document.getElementById('ai-panel').classList.toggle('open', aiOpen);
 }
- 
+
 function addAIWelcome() {
   aiHistory = [];
   addAIMsg(`Hi ${me.name.split(' ')[0]}! 👋 I'm your Barter AI, powered by Claude.\n\nI can help you write listing descriptions, suggest what to trade, find great deals, or explain how Barter works. What can I help with?`, 'a');
 }
- 
+
 function addAIMsg(text, role) {
   const el = document.getElementById('ai-msgs');
   const d = document.createElement('div');
@@ -992,33 +1070,33 @@ function addAIMsg(text, role) {
   el.scrollTop = el.scrollHeight;
   if (role !== 't') aiHistory.push({ role: role==='u'?'user':'assistant', content: text });
 }
- 
+
 function aiQ(text) {
   if (!aiOpen) toggleAI();
   document.getElementById('ai-ta').value = text;
   sendAI();
 }
- 
+
 async function sendAI() {
   const ta = document.getElementById('ai-ta');
   const text = ta.value.trim();
   if (!text) return;
   ta.value = '';
   addAIMsg(text, 'u');
- 
+
   const thinking = document.createElement('div');
   thinking.className = 'ai-msg t';
   thinking.textContent = 'Claude is thinking…';
   document.getElementById('ai-msgs').appendChild(thinking);
   document.getElementById('ai-msgs').scrollTop = 99999;
- 
+
   try {
     const system = `You are the AI assistant for Barter, a community barter platform with universal basic income (500 ◈BC per month to all members).
- 
+
 Current user: ${me.name}, Balance: ◈${me.balance} CC, Bio: "${me.bio||'N/A'}", Location: ${me.location||'unknown'}, Rating: ${me.rating||5}/5, Trades: ${me.trade_count||0}.
- 
+
 Be helpful, warm, and community-focused. Keep replies under 200 words. Use ◈ for coin amounts. You can help with: writing listing descriptions, pricing advice, barter suggestions, explaining platform features.`;
- 
+
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1033,12 +1111,12 @@ Be helpful, warm, and community-focused. Keep replies under 200 words. Use ◈ f
     addAIMsg('Connection error — please try again.', 'a');
   }
 }
- 
+
 // ── OVERLAYS ──
 function openOv(id) { document.getElementById(id).classList.add('open'); }
 function closeOv(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', e => { if (e.target.classList.contains('ov')) e.target.classList.remove('open'); });
- 
+
 // ── TOAST ──
 function toast(msg, type = '') {
   const c = document.getElementById('tc');
@@ -1050,22 +1128,22 @@ function toast(msg, type = '') {
   requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
   setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 280); }, 2800);
 }
- 
- 
+
+
 // ── PHOTO UPLOAD ──
 window._uploadedImageUrl = '';
- 
+
 function handleDrop(e) {
   e.preventDefault();
   document.getElementById('photo-drop').classList.remove('drag');
   const file = e.dataTransfer.files[0];
   if (file && file.type.startsWith('image/')) uploadPhoto(file);
 }
- 
+
 function handlePhotoSelect(input) {
   if (input.files[0]) uploadPhoto(input.files[0]);
 }
- 
+
 async function uploadPhoto(file) {
   if (file.size > 10 * 1024 * 1024) { toast('Image must be under 10MB', 'e'); return; }
   document.getElementById('photo-label').textContent = 'Uploading…';
@@ -1100,7 +1178,7 @@ async function uploadPhoto(file) {
     toast(e.message || 'Upload failed', 'e');
   }
 }
- 
+
 function removePhoto() {
   window._uploadedImageUrl = '';
   document.getElementById('photo-preview').classList.remove('show');
@@ -1109,8 +1187,210 @@ function removePhoto() {
   document.getElementById('photo-label').textContent = 'Click or drag a photo here';
   document.getElementById('photo-input').value = '';
 }
- 
+
+
+// ── MESSAGES ──
+let activeConvo = null;
+let msgPollInterval = null;
+
+async function loadMessages() {
+  const convos = await api('GET', '/api/messages');
+  const list = document.getElementById('convo-list');
+  if (!convos.length) {
+    list.innerHTML = '<div class="es" style="padding:30px 16px"><div class="es-i" style="font-size:32px">💬</div><div class="es-t" style="font-size:13px">No conversations yet</div><div class="es-s">Message a seller from any listing</div></div>';
+    return;
+  }
+  list.innerHTML = convos.map(c => `
+    <div class="convo-item ${activeConvo===c.other_id?'on':''}" onclick="openConvo('${c.other_id}','${c.other_name}','${c.other_initials||'??'}')">
+      <div class="convo-av">${c.other_initials||'??'}</div>
+      <div style="flex:1;min-width:0">
+        <div class="convo-name">${c.other_name}${c.unread>0?` <span style="background:#e24b4a;color:#fff;border-radius:8px;font-size:10px;padding:1px 5px">${c.unread}</span>`:''}</div>
+        <div class="convo-last">${c.last_msg||''}</div>
+      </div>
+    </div>`).join('');
+  updateMsgBadge();
+}
+
+async function updateMsgBadge() {
+  try {
+    const d = await api('GET', '/api/messages/unread/count');
+    const badge = document.getElementById('msg-badge');
+    if (d.count > 0) { badge.textContent = d.count; badge.style.display = 'inline'; }
+    else badge.style.display = 'none';
+  } catch {}
+}
+
+async function openConvo(userId, name, initials) {
+  activeConvo = userId;
+  document.getElementById('msg-thread-header').innerHTML = `<div class="convo-av" style="width:28px;height:28px;font-size:11px">${initials}</div><span>${name}</span>`;
+  document.getElementById('msg-input-area').style.display = 'block';
+  document.getElementById('msg-input').dataset.to = userId;
+  await loadThread(userId);
+  loadMessages();
+}
+
+async function loadThread(userId) {
+  const msgs = await api('GET', `/api/messages/${userId}`);
+  const thread = document.getElementById('msg-thread');
+  if (!msgs.length) { thread.innerHTML = '<div style="text-align:center;color:var(--ink3);font-size:13px;padding:30px">No messages yet — say hello!</div>'; return; }
+  thread.innerHTML = msgs.map(m => {
+    const mine = m.sender_id === me.id;
+    return `<div style="display:flex;flex-direction:column;align-items:${mine?'flex-end':'flex-start'}">
+      <div class="msg-bubble ${mine?'mine':'theirs'}">${m.text}</div>
+      <div class="msg-time">${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+    </div>`;
+  }).join('');
+  thread.scrollTop = thread.scrollHeight;
+}
+
+async function sendMsg() {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  const to = input.dataset.to;
+  if (!text || !to) return;
+  input.value = '';
+  await api('POST', '/api/messages', { receiverId: to, text });
+  loadThread(to);
+}
+
+function openMsg(sellerId, sellerName, sellerInitials, listingId) {
+  closeOv('ov-item');
+  goPage('messages');
+  openConvo(sellerId, sellerName, sellerInitials||'??');
+  if (listingId) document.getElementById('msg-input').dataset.listing = listingId;
+}
+
+// ── TRADES ──
+async function loadTrades() {
+  const trades = await api('GET', '/api/trades');
+  const el = document.getElementById('trades-list');
+  if (!trades.length) { el.innerHTML = '<div class="es"><div class="es-i">🤝</div><div class="es-t">No trades yet</div><div class="es-s">Buy something from the marketplace to start a trade</div></div>'; return; }
+  el.innerHTML = trades.map(t => {
+    const isBuyer = t.buyer_id === me.id;
+    const statusClass = {pending:'ts-pending',completed:'ts-completed',disputed:'ts-disputed',escrow:'ts-escrow'}[t.status]||'ts-pending';
+    const statusLabel = {pending:'⏳ Awaiting Confirmation',completed:'✓ Completed',disputed:'⚠ Disputed',escrow:'🔒 In Escrow'}[t.status]||t.status;
+    return `<div class="trade-card">
+      <div class="trade-thumb">${t.image_url?`<img src="${t.image_url}" alt="${t.listing_title}">`:`<span>${t.emoji||'📦'}</span>`}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;font-family:var(--ff);margin-bottom:3px">${t.listing_title}</div>
+        <div style="font-size:12px;color:var(--ink3);margin-bottom:7px">${isBuyer?'From: '+t.seller_name:'To: '+t.buyer_name} · ◈ ${t.amount.toLocaleString()} BC</div>
+        <span class="trade-status ${statusClass}">${statusLabel}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${isBuyer && t.status==='pending' ? `<button class="btn btn-success btn-sm" onclick="confirmTrade('${t.id}')"><i class="fas fa-check"></i> Confirm Receipt</button>` : ''}
+        ${t.status==='pending' ? `<button class="btn btn-danger btn-sm" onclick="disputeTrade('${t.id}')"><i class="fas fa-flag"></i> Dispute</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function confirmTrade(id) {
+  try {
+    const d = await api('POST', `/api/trades/${id}/confirm`);
+    await refreshMe();
+    loadTrades();
+    toast(d.message, 's');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+async function disputeTrade(id) {
+  try {
+    await api('POST', `/api/trades/${id}/dispute`);
+    loadTrades();
+    toast('Dispute raised — admin will review', 'e');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+// ── FEATURE / REPORT ──
+async function featureListing(id) {
+  try {
+    const d = await api('POST', `/api/listings/${id}/feature`);
+    await refreshMe();
+    closeOv('ov-item');
+    loadListings();
+    toast(d.message, 'g');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+async function reportListing(id) {
+  const reason = prompt('Why are you reporting this listing?\n\n1. Spam or misleading\n2. Prohibited item\n3. Fraud or scam\n4. Other\n\nType your reason:');
+  if (!reason) return;
+  try {
+    await api('POST', '/api/reports', { listingId: id, reason });
+    closeOv('ov-item');
+    toast('Report submitted — thank you!', 's');
+  } catch(e) { toast(e.message, 'e'); }
+}
+
+// ── INVITE SYSTEM ──
+async function loadInvites() {
+  try {
+    const d = await api('GET', '/api/invites/my');
+    const code = d.invites[0]?.code || '';
+    const link = window.location.origin + '?invite=' + code;
+    return { code, link, used: d.used };
+  } catch { return null; }
+}
+
+async function showInvites() {
+  const inv = await loadInvites();
+  if (!inv) return;
+  const box = document.getElementById('invite-section');
+  if (box) {
+    box.innerHTML = `
+      <div class="invite-box">
+        <div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px">Your invite link</div>
+        <div class="invite-code">${inv.code}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px">${inv.used} friends joined · earn <span style="color:var(--gold-l)">+100 ◈BC</span> per referral</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.15)" onclick="copyInvite('${inv.link}')"><i class="fas fa-copy"></i> Copy Link</button>
+          <button class="btn btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.15)" onclick="shareInvite('${inv.link}')"><i class="fas fa-share-alt"></i> Share</button>
+          <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none" onclick="shareWhatsApp('${inv.link}')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        </div>
+      </div>`;
+  }
+}
+
+function copyInvite(link) {
+  navigator.clipboard.writeText(link).then(() => toast('Invite link copied!', 's'));
+}
+
+function shareInvite(link) {
+  if (navigator.share) {
+    navigator.share({ title: 'Join Barter', text: 'Join me on Barter — earn 500 ◈BC just for signing up!', url: link });
+  } else copyInvite(link);
+}
+
+function shareWhatsApp(link) {
+  window.open('https://wa.me/?text=' + encodeURIComponent('Join me on Barter — a community barter network with universal income! 🪙 ' + link));
+}
+
+// Share a listing
+function shareListing(l) {
+  const text = `Check out "${l.title}" on Barter for ◈${l.price} BC! ${window.location.origin}`;
+  if (navigator.share) {
+    navigator.share({ title: l.title, text, url: window.location.origin });
+  } else {
+    navigator.clipboard.writeText(text).then(() => toast('Listing link copied!', 's'));
+  }
+}
+
+// QR Code for listing
+function showQR(listingId) {
+  const url = window.location.origin + '?listing=' + listingId;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+  document.getElementById('item-modal').innerHTML += `<div style="text-align:center;margin-top:14px"><img src="${qrUrl}" style="width:140px;height:140px;border-radius:var(--rs)"><div style="font-size:11px;color:var(--ink3);margin-top:6px">Scan to view this listing</div></div>`;
+}
+
 // ── BOOT ──
+// Check for invite code in URL
+const urlParams = new URLSearchParams(window.location.search);
+const urlInvite = urlParams.get('invite');
+if (urlInvite) {
+  authTab('register');
+  document.getElementById('r-inv').value = urlInvite;
+}
+
 if (token) {
   api('GET', '/api/auth/me').then(user => {
     me = user;
@@ -1119,6 +1399,33 @@ if (token) {
     token = null;
     localStorage.removeItem('barter_token');
   });
+}
+
+// Register PWA service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install button after login
+  const btn = document.createElement('button');
+  btn.className = 'btn btn-gold btn-sm';
+  btn.style.cssText = 'position:fixed;bottom:80px;right:20px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2)';
+  btn.innerHTML = '<i class="fas fa-download"></i> Install App';
+  btn.onclick = () => {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => btn.remove());
+  };
+  document.body.appendChild(btn);
+});
+
+// Auto-open register tab if URL has ?register=1
+if (new URLSearchParams(window.location.search).get('register') === '1' && !token) {
+  authTab('register');
 }
 </script>
 </body>
